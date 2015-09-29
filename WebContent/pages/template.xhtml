@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+
+	<title><ui:insert name="title" /></title>
+	<f:facet name="last">
+		<h:outputStylesheet name="css/reset.css" />
+		<h:outputStylesheet name="css/material.min.css" />
+		<h:outputScript name="js/material.min.js" />
+		<h:outputScript name="js/scripts.js" />
+		<link rel="stylesheet"
+			href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+	</f:facet>
+
+</h:head>
+
+<h:body onload="loadMDL()">
+	<p:dialog visible="false" closable="false" showHeader="false"
+		styleClass="load-dialog" modal="true" widgetVar="loadDlg"
+		resizable="false">
+		<div class="mdl-spinner mdl-js-spinner is-active" />
+	</p:dialog>
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+		<header class="mdl-layout__header">
+			<div class="mdl-layout__header-row">
+
+				<!-- Title -->
+				<span class="mdl-layout-title"> <ui:insert
+						name="header_title" />
+				</span>
+
+				<div class="mdl-layout-spacer">
+					<!-- Navigation. We hide it in small screens. -->
+					<nav class="mdl-navigation mdl-layout--large-screen-only"></nav>
+				</div>
+			</div>
+		</header>
+		<div class="mdl-layout__drawer">
+			<span class="mdl-layout-title">Title</span>
+			<nav class="mdl-navigation"></nav>
+		</div>
+		<main class="mdl-layout__content">
+		<div class="page-content">
+
+			<ui:insert name="main_content" />
+		</div>
+		</main>
+		<footer class="footer">
+			<div id="snackbar" class="mdl-snackbar" style="visibility: hidden;">
+				<div class="mdl-snackbar-text">Hello</div>
+			</div>
+		</footer>
+	</div>
+</h:body>
+</html>

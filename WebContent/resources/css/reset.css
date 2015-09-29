@@ -1,0 +1,97 @@
+@CHARSET "ISO-8859-1";
+
+.ui-fileupload, .ui-fileupload-buttonbar, .fileinput-button, .ui-panel {
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
+	font-size: 100% !important;
+	font: inherit !important;
+	vertical-align: baseline !important;
+	font-family: "Roboto" "Arial" "sans-serif";
+}
+
+.ui-state-hover, .ui-state-focus, .ui-state-active {
+	font-weight: normal !important;
+	border: none !important;
+	background-color: rgb(255, 110, 64) !important;
+}
+
+.ui-fileupload-buttonbar {
+	background-color: transparent !important;
+}
+
+.ui-button span {
+	font: inherit !important;
+}
+
+.ui-icon-plusthick {
+	display: none !important;
+	visibility: hidden !important;
+}
+
+table {
+	width: 100% !important;
+}
+
+.ui-datatable-odd, .ui-datatable-even {
+	background: inherit !important;
+}
+
+.ui-paginator .ui-paginator-page, .ui-paginator .ui-paginator-next,
+	.ui-paginator .ui-paginator-last, .ui-paginator .ui-paginator-first,
+	.ui-paginator .ui-paginator-prev {
+	font-weight: normal !important;
+	background-color: rgb(255, 110, 64);
+}
+
+.button-container {
+	margin-top: 20px;
+	margin-left: 40%;
+}
+
+th.ui-state-default {
+	background: inherit !important;
+	border: inherit !important;
+}
+
+.userTable .ui-widget-header {
+	background: none;
+	border: none;
+}
+
+.userTable {
+	margin-top: 20px;
+}
+
+.mdl-snackbar {
+	margin-left: 20px;
+	margin-bottom: 20px;
+	max-width: 568px;
+	min-width: 288px;
+	background-color: #323232;
+	color: white;
+	bottom: 24px;
+	left: 14px;
+	z-index: 1200;
+	min-height: 20px;
+	background-color: #323232;
+	max-width: 568px;
+}
+
+.mdl-snackbar-text {
+	font-size: 14px;
+	padding: 16px 24px 14px;
+}
+
+.load-dialog, .ui-dialog-content {
+	background-color: rgba(255, 255, 255, 0);
+	border: none;
+	box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	overflow: hidden !important;
+	padding: 0;
+}
+
+.ui-widget-overlay {
+	background: none;
+}
