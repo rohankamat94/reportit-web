@@ -10,10 +10,63 @@
 	font-family: "Roboto" "Arial" "sans-serif";
 }
 
-.ui-state-hover, .ui-state-focus, .ui-state-active {
+.mdl-button.ui-state-focus {
 	font-weight: normal !important;
 	border: none !important;
-	background-color: rgb(255, 110, 64) !important;
+	text-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+.mdl-button.ui-state-hover {
+	font-weight: normal !important;
+	border: none !important;
+	text-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+.mdl-button.ui-state-active {
+	font-weight: normal !important;
+	border: none !important;
+	text-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+.ui-paginator-page.ui-state-default.ui-corner-all.ui-state-focus {
+	border: none !important;
+	text-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+.ui-paginator-page.ui-state-default.ui-corner-all.ui-state-hover {
+	border: none !important;
+	text-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+.ui-paginator-page.ui-state-default.ui-corner-all {
+	border: none !important;
+}
+
+.ui-state-default.ui-sortable-column.ui-filter-column.ui-state-focus.ui-state-active
+	{
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.ui-column-filter.ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all
+	{
+	background: none !important;
+	box-shadow: inset 0px 2px 2px rgb(255, 110, 64) !important;
+}
+
+.ui-state-default.ui-sortable-column.ui-filter-column.ui-state-hover {
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
 }
 
 .ui-fileupload-buttonbar {
