@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -16,7 +15,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContext;
 
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -25,17 +23,18 @@ import org.primefaces.model.UploadedFile;
 import com.cirs.dao.remote.UserDao;
 import com.cirs.entities.User;
 import com.cirs.entities.UserUploadResponse;
+import com.cirs.jsf.controller.util.LazyLoader;
 import com.cirs.jsf.util.JsfUtils;
 
 @ManagedBean
 @ViewScoped
-public class TestBean implements Serializable {
+public class UserBean implements Serializable {
 
 	@EJB(beanName = "userDao")
 	UserDao dao;
 
 	private StreamedContent sampleFile;
-	private List<User> users;
+	private LazyLoader<User> users;
 	private UserUploadResponse response;
 
 	@PostConstruct
@@ -97,12 +96,15 @@ public class TestBean implements Serializable {
 		return dao.findAll().toString();
 	}
 
-	public List<User> getUsers() {
-		users = dao.findAll();
+	public LazyLoader<User> getUsers() {
+		if(users==null){
+			System.out.println("here");
+			users=new LazyLoader<>(dao);
+		}
 		return users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(LazyLoader<User> users) {
 		this.users = users;
 	}
 

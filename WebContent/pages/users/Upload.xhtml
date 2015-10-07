@@ -4,11 +4,11 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 	<p:dialog widgetVar="uploadDlg" width="800px" height="450px"
-		visible="#{!empty testBean.response.errors}" closable="false"
+		visible="#{!empty userBean.response.errors}" closable="false"
 		header="Error" id="uploadDialog">
 		<p:panel>
 			<p:dataTable var="err" paginator="true" paginatorPosition="bottom"
-				rows="5" value="#{testBean.response.errors}"
+				rows="5" value="#{userBean.response.errors}"
 				id="errorTable"
 				styleClass="userTable  mdl-shadow--2dp" widgetVar="errTable">
 				<p:column headerText="Row Number">
@@ -20,7 +20,7 @@
 			</p:dataTable>
 			<p:commandButton style="margin-left: 45%; margin-top: 20px;"
 				value="CLOSE" class="remove" onclick="PF('uploadDlg').hide()"
-				update="errorTable" actionListener="#{testBean.clear}" />
+				update="errorTable" actionListener="#{userBean.clear}" />
 		</p:panel>
 	</p:dialog>
 </ui:composition>
