@@ -7,8 +7,14 @@
 		<p:panel>
 			<p:dataTable value="#{userBean.users}" var="user" paginator="true"
 				paginatorPosition="bottom" rows="5" id="userTable" lazy="true"
-				rowKey="#{user.id}" styleClass="userTable  mdl-shadow--2dp"
+				selection="#{userBean.selected}" selectionMode="single"
+				tableStyleClass="mdl-data-table mdl-js-data-table"
+				tableStyle="width:100%" styleClass="mdl-shadow--2dp"
 				widgetVar="usrTable">
+				<p:ajax event="rowSelect" update=":userForm:deleteButton" />
+				<p:ajax event="rowUnselect" update=":userForm:deleteButton" />
+				<p:ajax event="page" listener="#{userBean.onPageChange}"
+					update=":userForm:deleteButton" />
 				<p:column headerText="Username" filterBy="#{user.userName}"
 					sortBy="#{user.userName}">
 					<h:outputText value="#{user.userName}" />
@@ -36,13 +42,20 @@
 				</p:column>
 			</p:dataTable>
 			<div class="button-container">
+				<p:commandButton value="Delete"
+					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+					actionListener="#{userBean.deleteUser}"
+					update=":userForm:userTable, :userForm:deleteButton"
+					id="deleteButton" disabled="#{userBean.selected eq null}" />
 				<p:commandButton value="Download" ajax="false"
-					styleClass="remove mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+					style="margin-left:60px">
 					<p:fileDownload value="#{userBean.sampleFile}" />
 				</p:commandButton>
+
 				<p:commandButton value="Upload" ajax="true" onclick="upload()"
 					style="margin-left:60px"
-					styleClass="remove mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
+					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
 
 				<p:fileUpload dragDropSupport="false" auto="true" skinSimple="true"
 					style="visibility:hidden !important" update="uploadDialog userForm"

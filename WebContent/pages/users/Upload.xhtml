@@ -4,12 +4,13 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 	<p:dialog widgetVar="uploadDlg" width="800px" height="450px"
-		visible="#{!empty userBean.response.errors}" closable="false"
-		header="Error" id="uploadDialog">
+		resizable="false" visible="#{!empty userBean.response.errors}"
+		style="background-color:white;" closable="false" modal="true"
+		header="Error" appendTo="@(body)" id="uploadDialog">
 		<p:panel>
 			<p:dataTable var="err" paginator="true" paginatorPosition="bottom"
-				rows="5" value="#{userBean.response.errors}"
-				id="errorTable"
+				rows="5" value="#{userBean.response.errors}" id="errorTable"
+				tableStyleClass="mdl-data-table mdl-js-data-table"
 				styleClass="userTable  mdl-shadow--2dp" widgetVar="errTable">
 				<p:column headerText="Row Number">
 					<h:outputText value="#{err.rowNumber}" />
@@ -19,8 +20,10 @@
 				</p:column>
 			</p:dataTable>
 			<p:commandButton style="margin-left: 45%; margin-top: 20px;"
-				value="CLOSE" class="remove" onclick="PF('uploadDlg').hide()"
-				update="errorTable" actionListener="#{userBean.clear}" />
+				value="CLOSE"
+				class="remove mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+				onclick="PF('uploadDlg').hide()" update="errorTable"
+				actionListener="#{userBean.clear}" />
 		</p:panel>
 	</p:dialog>
 </ui:composition>

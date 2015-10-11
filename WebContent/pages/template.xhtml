@@ -8,10 +8,10 @@
 
 	<title><ui:insert name="title" /></title>
 	<f:facet name="last">
-		<h:outputStylesheet name="css/reset.css" />
 		<h:outputStylesheet name="css/material.min.css" />
-		<h:outputScript name="js/material.min.js" />
+		<h:outputStylesheet name="css/reset.css" />
 		<h:outputScript name="js/scripts.js" />
+		<h:outputScript name="js/material.min.js" />
 		<link rel="stylesheet"
 			href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 	</f:facet>
@@ -19,11 +19,8 @@
 </h:head>
 
 <h:body onload="loadMDL()">
-	<p:dialog visible="false" closable="false" showHeader="false"
-		styleClass="load-dialog" modal="true" widgetVar="loadDlg"
-		resizable="false">
-		<div class="mdl-spinner mdl-js-spinner is-active" />
-	</p:dialog>
+
+
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 		<header class="mdl-layout__header">
 			<div class="mdl-layout__header-row">
@@ -45,7 +42,11 @@
 		</div>
 		<main class="mdl-layout__content">
 		<div class="page-content">
-
+			<p:dialog visible="false" closable="false" showHeader="false"
+				styleClass="load-dialog" modal="true" widgetVar="loadDlg" appendTo="@(bodyF)"
+				resizable="false">
+				<div class="mdl-spinner mdl-js-spinner is-active" />
+			</p:dialog>
 			<ui:insert name="main_content" />
 		</div>
 		</main>

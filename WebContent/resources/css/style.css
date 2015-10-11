@@ -1,0 +1,6 @@
+@CHARSET "ISO-8859-1";
+
+.ui-paginator-page.ui-state-default.ui-corner-all {
+	border-radius: 4px;
+	
+}

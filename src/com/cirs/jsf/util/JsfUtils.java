@@ -5,11 +5,11 @@ import org.primefaces.context.RequestContext;
 public class JsfUtils {
 
 	public static void beginLoader() {
-		RequestContext.getCurrentInstance().execute("PF('loadDlg').show();");
+		RequestContext.getCurrentInstance().execute("showLoader();");
 	}
 
 	public static void endLoader() {
-		RequestContext.getCurrentInstance().execute("PF('loadDlg').hide();");
+		RequestContext.getCurrentInstance().execute("hideLoader();");
 	}
 
 	public static void showSnackBar(String message) {

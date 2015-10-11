@@ -16,6 +16,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContext;
 
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.data.PageEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -26,6 +27,7 @@ import com.cirs.entities.UserUploadResponse;
 import com.cirs.jsf.controller.util.LazyLoader;
 import com.cirs.jsf.util.JsfUtils;
 
+@SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
 public class UserBean implements Serializable {
@@ -36,6 +38,7 @@ public class UserBean implements Serializable {
 	private StreamedContent sampleFile;
 	private LazyLoader<User> users;
 	private UserUploadResponse response;
+	private User selected;
 
 	@PostConstruct
 	public void init() {
@@ -43,7 +46,6 @@ public class UserBean implements Serializable {
 		InputStream is = ((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext())
 				.getResourceAsStream("/resources/sample.xlsx");
 		sampleFile = new DefaultStreamedContent(is, "application/vnd.ms-excel", "sample.xlsx");
-
 	}
 
 	public void onUpload(FileUploadEvent event) {
@@ -54,7 +56,7 @@ public class UserBean implements Serializable {
 			try {
 				File f = new File(file.getFileName());
 				System.out.println(f.getName() + " " + f.getName().endsWith("xlsx"));
-				if(!f.getName().endsWith("xlsx") && !f.getName().endsWith("xls")){
+				if (!f.getName().endsWith("xlsx") && !f.getName().endsWith("xls")) {
 					JsfUtils.showSnackBar("Incorrect file type");
 					JsfUtils.endLoader();
 					return;
@@ -76,11 +78,16 @@ public class UserBean implements Serializable {
 				fos.flush();
 				fos.close();
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		JsfUtils.endLoader();
+	}
+
+	public void onPageChange(PageEvent event) {
+		setSelected(null);
 	}
 
 	public void clear() {
@@ -97,9 +104,9 @@ public class UserBean implements Serializable {
 	}
 
 	public LazyLoader<User> getUsers() {
-		if(users==null){
+		if (users == null) {
 			System.out.println("here");
-			users=new LazyLoader<>(dao);
+			users = new LazyLoader<>(dao);
 		}
 		return users;
 	}
@@ -112,4 +119,18 @@ public class UserBean implements Serializable {
 		return response;
 	}
 
+	public User getSelected() {
+		return selected;
+	}
+
+	public void setSelected(User selected) {
+		this.selected = selected;
+	}
+
+	public void deleteUser() {
+		if (selected != null) {
+			dao.delete(selected.getId());
+			setSelected(null);
+		}
+	}
 }

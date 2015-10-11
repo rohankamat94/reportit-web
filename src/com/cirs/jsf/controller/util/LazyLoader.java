@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.persistence.jpa.jpql.tools.model.query.EntryExpressionStateObject;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
@@ -26,10 +25,9 @@ public class LazyLoader<T extends CirsEntity> extends LazyDataModel<T> {
 		// System.out.println((filters == null) + " " +
 		// (filters.keySet().size()));
 
-		
-		Map<String, Object> sortMap=new HashMap<>();
-		if(sortField!=null){			
-			sortMap= Utils.getAsMap(sortField, (Object) (sortOrder == SortOrder.ASCENDING));
+		Map<String, Object> sortMap = new HashMap<>();
+		if (sortField != null) {
+			sortMap = Utils.getAsMap(sortField, (Object) (sortOrder == SortOrder.ASCENDING));
 		}
 		System.out.println(sortMap);
 		for (Map.Entry<String, Object> entry : filters.entrySet()) {
@@ -42,5 +40,16 @@ public class LazyLoader<T extends CirsEntity> extends LazyDataModel<T> {
 		}
 		return resultList;
 
+	}
+
+	@Override
+	public Object getRowKey(T object) {
+		return object.getId();
+	}
+
+	@Override
+	public T getRowData(String rowKey) {
+		System.out.println("row key" + rowKey);
+		return dao.findById(rowKey);
 	}
 }
