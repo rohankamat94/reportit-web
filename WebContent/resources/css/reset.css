@@ -1,6 +1,8 @@
 @CHARSET "ISO-8859-1";
-
-.ui-fileupload, .ui-fileupload-buttonbar, .fileinput-button, .ui-panel {
+/*
+ * FILE UPLOAD
+ */
+/* .ui-panel {
 	margin: 0 !important;
 	padding: 0 !important;
 	border: 0 !important;
@@ -9,8 +11,12 @@
 	vertical-align: baseline !important;
 	font-family: "Roboto" "Arial" "sans-serif";
 }
+*/
+.ui-fileupload-content {
+	visibility: hidden !important;
+}
 
-.mdl-button.ui-state-focus {
+/* .mdl-button.ui-state-focus {
 	font-weight: normal !important;
 	border: none !important;
 	text-shadow: none !important;
@@ -21,9 +27,12 @@
 .mdl-button.ui-state-hover {
 	font-weight: normal !important;
 	border: none !important;
+	background: rgba(158, 158, 158, .2);
 	text-shadow: none !important;
 	-webkit-box-shadow: none !important;
-	box-shadow: none !important;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px
+		rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12) !important;
+	text-shadow: none !important;
 }
 
 .mdl-button.ui-state-active {
@@ -47,11 +56,63 @@
 	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
 }
-
-.ui-paginator-page.ui-state-default.ui-corner-all {
+ */
+.ui-paginator-page, .ui-paginator-next, .ui-paginator-last,
+	.ui-paginator-first, .ui-paginator-prev {
 	border: none !important;
+	background: #90CAF9;
+	text-shadow: none;
+	border-radius: 4px;
+	width: 24px;
 }
 
+.ui-paginator-first.ui-state-disabled, .ui-paginator-last.ui-state-disabled,
+	.ui-paginator-prev.ui-state-disabled, .ui-paginator-next.ui-state-disabled
+	{
+	visibility: hidden;
+}
+
+.ui-paginator-page.ui-state-active {
+	border: none !important;
+	background: #64B5F6;
+	text-shadow: none;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 0 5px #2196F3;
+	box-shadow: inset 0 0 5px #2196F3;
+}
+
+.ui-paginator-next {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url(#{ resource [ 'icons/ic_next.png' ]
+}
+
+);
+}
+.ui-paginator-last {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url(#{ resource [ 'icons/ic_last.png' ]
+}
+
+);
+}
+.ui-paginator-first {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url(#{ resource [ 'icons/ic_first.png' ]
+}
+
+);
+}
+.ui-paginator-prev {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url(#{ resource [ 'icons/ic_prev.png' ]
+}
+
+);
+}
 .ui-state-default.ui-sortable-column.ui-filter-column.ui-state-focus.ui-state-active
 	{
 	-webkit-box-shadow: none;
@@ -73,15 +134,11 @@
 	background-color: transparent !important;
 }
 
-.ui-button span {
-	font: inherit !important;
-}
-
-.ui-icon-plusthick {
+/* .ui-icon-plusthick {
 	display: none !important;
 	visibility: hidden !important;
 }
-
+ */
 table {
 	width: 100% !important;
 }
@@ -89,17 +146,16 @@ table {
 .ui-datatable-odd, .ui-datatable-even {
 	background: inherit !important;
 }
-
+/* 
 .ui-paginator .ui-paginator-page, .ui-paginator .ui-paginator-next,
 	.ui-paginator .ui-paginator-last, .ui-paginator .ui-paginator-first,
 	.ui-paginator .ui-paginator-prev {
 	font-weight: normal !important;
 	background-color: rgb(255, 110, 64);
-}
-
+} */
 .button-container {
 	margin-top: 20px;
-	margin-left: 40%;
+	margin-left: 33.33%;
 }
 
 th.ui-state-default {
@@ -148,3 +204,36 @@ th.ui-state-default {
 .ui-widget-overlay {
 	background: none;
 }
+
+.ui-widget-content.ui-datatable-odd.ui-datatable-selectable.ui-state-highlight,
+	.ui-widget-content.ui-datatable-even.ui-datatable-selectable.ui-state-highlight
+	{
+	background-color: #64B5F6 !important;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-shadow: none;
+	font-weight: bold;
+}
+
+/* .ui-paginator.ui-paginator-bottom.ui-widget-header.ui-corner-bottom {
+	background: none;
+	padding: 10px;
+}
+
+.ui-paginator-next.ui-state-default.ui-corner-all, .ui-paginator-last.ui-state-default.ui-corner-all
+	{
+	background: rgb(255, 110, 64);
+	border: none;
+}
+
+.ui-paginator-next.ui-state-default.ui-corner-all.ui-state-hover {
+	border: none;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+} */
+/* .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
+	{
+	border: none;
+	font-weight: normal;
+	text-shadow: none;
+} */

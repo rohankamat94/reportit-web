@@ -1,20 +1,27 @@
 function loadMDL() {
+	createCardFromDialog();
+}
 
-	$('.ui-fileupload-content').css("visibility", "hidden");
+function createCardFromDialog() {
+	$('.ui-dialog-titlebar').removeClass().addClass('mdl-card__title');
+	$('.ui-dialog-title').removeClass().addClass('mdl-card__title-text');
+}
+
+/*function makeButtonMdl() {
 	$('.remove')
 			.removeClass()
 			.addClass(
-					'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent')
-			.hover(function() {
-				console.log("in hover");
-				$(this).removeClass('ui-state-hover')
-			});
-
-	$('.ui-dialog-titlebar').removeClass().addClass('mdl-card__title');
-	$('.ui-dialog-title').removeClass().addClass('mdl-card__title-text');
-	$('table').addClass('mdl-data-table mdl-js-data-table')
-			.css('width', '100%');
+					'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent');
 }
+*/
+function showLoader() {
+	PF('loadDlg').show();
+}
+
+function hideLoader() {
+	PF('loadDlg').hide();
+}
+
 function upload() {
 	console.log("in upload");
 	$(PF('uploadUser').jqId).find('*').click();
