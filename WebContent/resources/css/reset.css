@@ -62,8 +62,8 @@
 	border: none !important;
 	background: #90CAF9;
 	text-shadow: none;
-	border-radius: 4px;
-	width: 24px;
+	border-radius: 4.0px;
+	width: 24.0px;
 }
 
 .ui-paginator-first.ui-state-disabled, .ui-paginator-last.ui-state-disabled,
@@ -76,43 +76,39 @@
 	border: none !important;
 	background: #64B5F6;
 	text-shadow: none;
-	border-radius: 4px;
-	-webkit-box-shadow: inset 0 0 5px #2196F3;
-	box-shadow: inset 0 0 5px #2196F3;
+	border-radius: 4.0px;
+	-webkit-box-shadow: inset 0.0 0.0 5.0px #2196F3;
+	box-shadow: inset 0.0 0.0 5.0px #2196F3;
 }
 
 .ui-paginator-next {
 	background-position: center;
 	background-repeat: no-repeat;
-	background-image: url(#{ resource [ 'icons/ic_next.png' ]
+	background-image:
+		url('http://localhost:8080/CIRSWeb/faces/javax.faces.resources/icons/ic_next.png');
 }
 
-);
-}
 .ui-paginator-last {
 	background-position: center;
 	background-repeat: no-repeat;
-	background-image: url(#{ resource [ 'icons/ic_last.png' ]
+	background-image:
+		url('http://localhost:8080/CIRSWeb/faces/javax.faces.resources/icons/ic_last.png');
 }
 
-);
-}
 .ui-paginator-first {
 	background-position: center;
 	background-repeat: no-repeat;
-	background-image: url(#{ resource [ 'icons/ic_first.png' ]
+	background-image:
+		url('http://localhost:8080/CIRSWeb/faces/javax.faces.resources/icons/ic_first.png');
 }
 
-);
-}
 .ui-paginator-prev {
 	background-position: center;
 	background-repeat: no-repeat;
-	background-image: url(#{ resource [ 'icons/ic_prev.png' ]
+	background-image:
+		url('http://localhost:8080/CIRSWeb/faces/javax.faces.resources/icons/ic_prev.png');
 }
 
-);
-}
 .ui-state-default.ui-sortable-column.ui-filter-column.ui-state-focus.ui-state-active
 	{
 	-webkit-box-shadow: none;
@@ -122,7 +118,7 @@
 .ui-column-filter.ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all
 	{
 	background: none !important;
-	box-shadow: inset 0px 2px 2px rgb(255, 110, 64) !important;
+	box-shadow: inset 0.0px 2.0px 2.0px rgb(255.0, 110.0, 64.0) !important;
 }
 
 .ui-state-default.ui-sortable-column.ui-filter-column.ui-state-hover {
@@ -140,7 +136,7 @@
 }
  */
 table {
-	width: 100% !important;
+	width: 100.0% !important;
 }
 
 .ui-datatable-odd, .ui-datatable-even {
@@ -154,7 +150,7 @@ table {
 	background-color: rgb(255, 110, 64);
 } */
 .button-container {
-	margin-top: 20px;
+	margin-top: 20.0px;
 	margin-left: 33.33%;
 }
 
@@ -169,36 +165,36 @@ th.ui-state-default {
 }
 
 .userTable {
-	margin-top: 20px;
+	margin-top: 20.0px;
 }
 
 .mdl-snackbar {
-	margin-left: 20px;
-	margin-bottom: 20px;
-	max-width: 568px;
-	min-width: 288px;
+	margin-left: 20.0px;
+	margin-bottom: 20.0px;
+	max-width: 568.0px;
+	min-width: 288.0px;
 	background-color: #323232;
 	color: white;
-	bottom: 24px;
-	left: 14px;
-	z-index: 1200;
-	min-height: 20px;
+	bottom: 24.0px;
+	left: 14.0px;
+	z-index: 1200.0;
+	min-height: 20.0px;
 	background-color: #323232;
-	max-width: 568px;
+	max-width: 568.0px;
 }
 
 .mdl-snackbar-text {
-	font-size: 14px;
-	padding: 16px 24px 14px;
+	font-size: 14.0px;
+	padding: 16.0px 24.0px 14.0px;
 }
 
 .load-dialog, .ui-dialog-content {
-	background-color: rgba(255, 255, 255, 0);
+	background-color: rgba(255.0, 255.0, 255.0, 0.0);
 	border: none;
 	box-shadow: none !important;
 	-webkit-box-shadow: none !important;
 	overflow: hidden !important;
-	padding: 0;
+	padding: 0.0;
 }
 
 .ui-widget-overlay {
@@ -213,6 +209,66 @@ th.ui-state-default {
 	font-weight: bold;
 	text-shadow: none;
 	font-weight: bold;
+}
+
+/*
+ * styles taken from mdl-card__title-text
+ */
+.ui-dialog-title {
+	-webkit-align-self: flex-end;
+	-ms-flex-item-align: end;
+	align-self: flex-end;
+	color: inherit;
+	display: block;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	font-size: 24.0px;
+	font-weight: 300.0;
+	line-height: normal;
+	overflow: hidden;
+	-webkit-transform-origin: 149.0px 48.0px;
+	-ms-transform-origin: 149.0px 48.0px;
+	transform-origin: 149.0px 48.0px;
+	margin: 0.0;
+}
+/*
+ * styles taken from mdl-card__title
+ */
+.ui-dialog-titlebar.ui-widget-header.ui-helper-clearfix.ui-corner-top {
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	color: #000;
+	display: block;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: stretch;
+	-webkit-justify-content: stretch;
+	-ms-flex-pack: stretch;
+	justify-content: stretch;
+	line-height: normal;
+	padding: 16.0px;
+	-webkit-perspective-origin: 165.0px 56.0px;
+	perspective-origin: 165.0px 56.0px;
+	-webkit-transform-origin: 165.0px 56.0px;
+	-ms-transform-origin: 165.0px 56.0px;
+	transform-origin: 165.0px 56.0px;
+	box-sizing: border-box;
+}
+
+.profile-pic {
+	width: 100px;
+	height: 100px;
+}
+
+.ui-panelgrid, .ui-panelgrid-cell {
+	border: none !important;
+	border-style: none;
 }
 
 /* .ui-paginator.ui-paginator-bottom.ui-widget-header.ui-corner-bottom {

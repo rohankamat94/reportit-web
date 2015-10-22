@@ -7,13 +7,10 @@ function createCardFromDialog() {
 	$('.ui-dialog-title').removeClass().addClass('mdl-card__title-text');
 }
 
-/*function makeButtonMdl() {
-	$('.remove')
-			.removeClass()
-			.addClass(
-					'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent');
-}
-*/
+/*
+ * function makeButtonMdl() { $('.remove') .removeClass() .addClass( 'mdl-button
+ * mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'); }
+ */
 function showLoader() {
 	PF('loadDlg').show();
 }
@@ -35,4 +32,14 @@ function showSnackBar(message) {
 	setTimeout(function() {
 		$('#snackbar').css('visibility', 'hidden');
 	}, 5000);
+}
+
+function getRipple() {
+	for ( var i in arguments) {
+		console.log(arguments[i]);
+		var comp = $(PF(arguments[i]).jqId).get();
+		for(var x in comp){
+			componentHandler.upgradeElements(comp[x]);
+		}
+	}
 }

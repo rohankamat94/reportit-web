@@ -3,65 +3,23 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
-	<h:form id="userForm">
-		<p:panel>
-			<p:dataTable value="#{userBean.users}" var="user" paginator="true"
-				paginatorPosition="bottom" rows="5" id="userTable" lazy="true"
-				selection="#{userBean.selected}" selectionMode="single"
-				tableStyleClass="mdl-data-table mdl-js-data-table"
-				tableStyle="width:100%" styleClass="mdl-shadow--2dp"
-				widgetVar="usrTable">
-				<p:ajax event="rowSelect" update=":userForm:deleteButton" />
-				<p:ajax event="rowUnselect" update=":userForm:deleteButton" />
-				<p:ajax event="page" listener="#{userBean.onPageChange}"
-					update=":userForm:deleteButton" />
-				<p:column headerText="Username" filterBy="#{user.userName}"
-					sortBy="#{user.userName}">
-					<h:outputText value="#{user.userName}" />
-				</p:column>
-				<p:column headerText="First Name" filterBy="#{user.firstName}"
-					sortBy="#{user.firstName}">
-					<h:outputText value="#{user.firstName}" />
-				</p:column>
-				<p:column headerText="Last Name" filterBy="#{user.lastName}"
-					sortBy="#{user.lastName}">
-					<h:outputText value="#{user.lastName}" />
-				</p:column>
-				<p:column headerText="Gender">
-					<h:outputText value="#{user.gender}" />
-				</p:column>
-				<p:column headerText="DOB" filterBy="#{user.dob}"
-					sortBy="#{user.dob}">
-					<h:outputText value="#{user.dob}" />
-				</p:column>
-				<p:column headerText="Email" filterBy="#{user.email}">
-					<h:outputText value="#{user.email}" />
-				</p:column>
-				<p:column headerText="Phone Number" filterBy="#{user.phone}">
-					<h:outputText value="#{user.phone}" />
-				</p:column>
-			</p:dataTable>
-			<div class="button-container">
-				<p:commandButton value="Delete"
-					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-					actionListener="#{userBean.deleteUser}"
-					update=":userForm:userTable, :userForm:deleteButton"
-					id="deleteButton" disabled="#{userBean.selected eq null}" />
-				<p:commandButton value="Download" ajax="false"
-					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-					style="margin-left:60px">
-					<p:fileDownload value="#{userBean.sampleFile}" />
-				</p:commandButton>
+	<p:dialog widgetVar="viewDlg" width="800px" height="450px"
+		resizable="false" visible="#{userBean.selected ne null}"
+		draggable="false" style="background-color:white;" closable="true"
+		modal="true" header="#{userBean.selected.firstName} #{userBean.selected.lastName}" appendTo="@(body)" id="viewDialog">
+		<h:graphicImage url="http://localhost:8080/CIRSWeb/image/users/#{userBean.selected.id}" styleClass="profile-pic" />
+		<p:panelGrid columns="2" id="infoPanel">
+			<p:outputLabel value="First Name" />
+			<p:outputLabel value="#{userBean.selected.firstName}" />
+			<p:outputLabel value="Username" />
+			<p:outputLabel value="#{userBean.selected.userName}" />
+		</p:panelGrid>
 
-				<p:commandButton value="Upload" ajax="true" onclick="upload()"
-					style="margin-left:60px"
-					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
+		<p:commandButton style="margin-left: 45%; margin-top: 20px;"
+			value="close"
+			widgetVar="closeViewBtn"
+			class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+			onclick="PF('viewDlg').hide()"/>
+	</p:dialog>
 
-				<p:fileUpload dragDropSupport="false" auto="true" skinSimple="true"
-					style="visibility:hidden !important" update="uploadDialog userForm"
-					oncomplete="loadMDL();" fileUploadListener="#{userBean.onUpload}"
-					widgetVar="uploadUser" />
-			</div>
-		</p:panel>
-	</h:form>
 </ui:composition>

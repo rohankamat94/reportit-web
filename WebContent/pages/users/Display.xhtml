@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<h:form id="userForm">
+		<p:panel>
+			<p:dataTable value="#{userBean.users}" var="user" paginator="true"
+				paginatorPosition="bottom" rows="5" id="userTable" lazy="true"
+				selection="#{userBean.selected}" selectionMode="single"
+				tableStyleClass="mdl-data-table mdl-js-data-table"
+				rowsPerPageTemplate="5,10,15" tableStyle="width:100%"
+				styleClass="mdl-shadow--2dp" widgetVar="usrTable">
+				<p:ajax event="rowSelect"
+					oncomplete="getRipple('viewBtn','deleteBtn');"
+					update=":userForm:deleteButton :userForm:viewButton" />
+				<p:ajax event="rowUnselect"
+					oncomplete="getRipple('viewBtn','deleteBtn');"
+					update=":userForm:deleteButton :userForm:viewButton" />
+				<p:ajax event="page" listener="#{userBean.onPageChange}"
+					update=":userForm:viewButton userForm:deleteButton" />
+				<p:column headerText="Username" filterBy="#{user.userName}"
+					sortBy="#{user.userName}">
+					<h:outputText value="#{user.userName}" />
+				</p:column>
+				<p:column headerText="First Name" filterBy="#{user.firstName}"
+					sortBy="#{user.firstName}">
+					<h:outputText value="#{user.firstName}" />
+				</p:column>
+				<p:column headerText="Last Name" filterBy="#{user.lastName}"
+					sortBy="#{user.lastName}">
+					<h:outputText value="#{user.lastName}" />
+				</p:column>
+				<p:column headerText="Gender">
+					<h:outputText value="#{user.gender}" />
+				</p:column>
+				<p:column headerText="DOB" filterBy="#{user.dob}"
+					sortBy="#{user.dob}">
+					<h:outputText value="#{user.dob}" />
+				</p:column>
+				<p:column headerText="Email" filterBy="#{user.email}">
+					<h:outputText value="#{user.email}" />
+				</p:column>
+				<p:column headerText="Phone Number" filterBy="#{user.phone}">
+					<h:outputText value="#{user.phone}" />
+				</p:column>
+			</p:dataTable>
+			<div class="button-container">
+				<p:commandButton value="View" oncomplete="getRipple('closeViewBtn')"
+					update=":viewDialog" disabled="#{userBean.selected eq null}"
+					id="viewButton" widgetVar="viewBtn"
+					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
+
+				<p:commandButton value="Delete" style="margin-left:60px"
+					widgetVar="deleteBtn"
+					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+					actionListener="#{userBean.deleteUser}"
+					update=":userForm:userTable, :userForm:deleteButton"
+					id="deleteButton" disabled="#{userBean.selected eq null}" />
+				<p:commandButton value="Download" ajax="false"
+					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+					style="margin-left:60px">
+					<p:fileDownload value="#{userBean.sampleFile}" />
+				</p:commandButton>
+
+				<p:commandButton value="Upload" ajax="true" onclick="upload()"
+					style="margin-left:60px" oncomplete="getRipple('closeUploadBtn')"
+					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
+
+				<p:fileUpload dragDropSupport="false" auto="true" skinSimple="true"
+					style="visibility:hidden !important" update="uploadDialog userForm"
+					fileUploadListener="#{userBean.onUpload}" widgetVar="uploadUser" />
+			</div>
+		</p:panel>
+	</h:form>
+</ui:composition>
