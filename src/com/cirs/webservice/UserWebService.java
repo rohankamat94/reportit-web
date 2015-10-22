@@ -2,6 +2,10 @@ package com.cirs.webservice;
 
 import static com.cirs.webservice.util.JsonUtils.getResponseEntity;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -11,10 +15,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.cirs.core.CIRSConstants;
 import com.cirs.dao.remote.UserDao;
 import com.cirs.entities.User;
 import com.cirs.exceptions.EntityNotFoundException;
@@ -74,14 +80,39 @@ public class UserWebService {
 		}
 	}
 
-	/*
-	 * @DELETE
-	 * 
-	 * @Produces(MediaType.APPLICATION_JSON)
-	 * 
-	 * @Path("{id}") public Response delete(@PathParam("id") Long id) { if
-	 * (dao.delete(id)) { return
-	 * Response.status(Status.OK).entity(getResponseEntity(200, "User deleted"))
-	 * .type(MediaType.APPLICATION_JSON).build(); } return null; }
-	 */
+	@PUT
+	@Path("/image/{id}")
+	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
+	public Response save(@PathParam("id") Long id, @QueryParam("fileType") String fileType, byte[] content) {
+		System.out.println("in save image");
+		System.out.println(Arrays.toString(content));
+		if (dao.findById(id) == null) {
+			System.out.println("image for id " + id + " not found");
+			return Response.status(404).build();
+		} else {
+			if (fileType == null || fileType.equals("")) {
+				// Assume png, since it's from android
+				fileType = "png";
+			}
+			java.nio.file.Path p = CIRSConstants.getUserImageDir().resolve(id + "." + fileType);
+			System.out.println("path in save " + p);
+			try {
+				synchronized (p) {
+					Files.deleteIfExists(p);
+					Files.createFile(p);
+				}
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			System.out.println("creating path " + p.getFileName());
+			try (FileOutputStream fos = new FileOutputStream(p.toFile())) {
+				fos.write(content);
+				return Response.status(200).build();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
 }
