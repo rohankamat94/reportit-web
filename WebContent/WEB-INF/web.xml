@@ -4,6 +4,15 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
 	<display-name>CIRSWeb</display-name>
+	
+	<servlet>
+		<servlet-name>Image Servlet</servlet-name>
+		<servlet-class>com.cirs.servlets.image.ImageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Image Servlet</servlet-name>
+		<url-pattern>/image/*</url-pattern>
+	</servlet-mapping>
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>

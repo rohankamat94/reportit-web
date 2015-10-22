@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -16,6 +17,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -30,6 +32,10 @@ public class UserWebService {
 
 	@EJB(beanName = "userDao")
 	private UserDao dao;
+	
+	@Context
+	HttpServletRequest req;
+
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -82,18 +88,19 @@ public class UserWebService {
 
 	@PUT
 	@Path("/image/{id}")
-	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
-	public Response save(@PathParam("id") Long id, @QueryParam("fileType") String fileType, byte[] content) {
+	@Consumes("image/*")
+	public Response save(@PathParam("id") Long id, byte[] content) {
+		
+		System.out.println(req.getContentType());
+		
 		System.out.println("in save image");
 		System.out.println(Arrays.toString(content));
 		if (dao.findById(id) == null) {
 			System.out.println("image for id " + id + " not found");
 			return Response.status(404).build();
 		} else {
-			if (fileType == null || fileType.equals("")) {
-				// Assume png, since it's from android
-				fileType = "png";
-			}
+			
+			String fileType=req.getContentType().split("/")[1];
 			java.nio.file.Path p = CIRSConstants.getUserImageDir().resolve(id + "." + fileType);
 			System.out.println("path in save " + p);
 			try {
