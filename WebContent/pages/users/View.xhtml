@@ -6,20 +6,34 @@
 	<p:dialog widgetVar="viewDlg" width="800px" height="450px"
 		resizable="false" visible="#{userBean.selected ne null}"
 		draggable="false" style="background-color:white;" closable="true"
-		modal="true" header="#{userBean.selected.firstName} #{userBean.selected.lastName}" appendTo="@(body)" id="viewDialog">
-		<h:graphicImage url="http://localhost:8080/CIRSWeb/image/users/#{userBean.selected.id}" styleClass="profile-pic" />
+		modal="true"
+		header="#{userBean.selected.firstName} #{userBean.selected.lastName}"
+		appendTo="@(body)" id="viewDialog">
+		<h:graphicImage
+			url="http://localhost:8080/CIRSWeb/image/users/#{userBean.selected.id}"
+			styleClass="profile-pic" />
 		<p:panelGrid columns="2" id="infoPanel">
-			<p:outputLabel value="First Name" />
-			<p:outputLabel value="#{userBean.selected.firstName}" />
 			<p:outputLabel value="Username" />
 			<p:outputLabel value="#{userBean.selected.userName}" />
+			<p:outputLabel value="First Name" />
+			<p:outputLabel value="#{userBean.selected.firstName}" />
+			<p:outputLabel value="Last Name" />
+			<p:outputLabel value="#{userBean.selected.lastName}" />
+			<p:outputLabel value="Gender" />
+			<p:outputLabel value="#{userBean.selected.gender}" />
+			<p:outputLabel value="Date Of Birth" />
+			<p:outputLabel value="#{userBean.selected.dob}" />
+			<p:outputLabel value="Email" />
+			<p:outputLabel value="#{userBean.selected.email}" />
+			<p:outputLabel value="Gender" />
+			<p:outputLabel value="#{userBean.selected.phone}" />
+
 		</p:panelGrid>
 
 		<p:commandButton style="margin-left: 45%; margin-top: 20px;"
-			value="close"
-			widgetVar="closeViewBtn"
+			value="close" widgetVar="closeViewBtn"
 			class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-			onclick="PF('viewDlg').hide()"/>
+			onclick="PF('viewDlg').hide()" />
 	</p:dialog>
 
 </ui:composition>

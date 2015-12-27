@@ -12,6 +12,7 @@ import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -32,10 +33,9 @@ public class UserWebService {
 
 	@EJB(beanName = "userDao")
 	private UserDao dao;
-	
+
 	@Context
 	HttpServletRequest req;
-
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -90,17 +90,17 @@ public class UserWebService {
 	@Path("/image/{id}")
 	@Consumes("image/*")
 	public Response save(@PathParam("id") Long id, byte[] content) {
-		
+
 		System.out.println(req.getContentType());
-		
+
 		System.out.println("in save image");
 		System.out.println(Arrays.toString(content));
 		if (dao.findById(id) == null) {
 			System.out.println("image for id " + id + " not found");
 			return Response.status(404).build();
 		} else {
-			
-			String fileType=req.getContentType().split("/")[1];
+
+			String fileType = req.getContentType().split("/")[1];
 			java.nio.file.Path p = CIRSConstants.getUserImageDir().resolve(id + "." + fileType);
 			System.out.println("path in save " + p);
 			try {
@@ -122,4 +122,12 @@ public class UserWebService {
 		return null;
 	}
 
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response verifyCredentials(User user) {
+		System.out.println("here in verify");
+		User u = dao.verifyCredentials(user.getUserName(), user.getPassword()); 
+		return u!=null? Response.status(200).type(MediaType.APPLICATION_JSON).entity(u).build() : Response.status(404).build();
+	}
 }

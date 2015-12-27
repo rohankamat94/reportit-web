@@ -33,12 +33,29 @@ function showSnackBar(message) {
 		$('#snackbar').css('visibility', 'hidden');
 	}, 5000);
 }
+function showAddCategory() {
+	upgradeComponents('.mdl-switch','.mdl-textfield');
+	PF('addDlg').show();
+}
+function showEditCategory() {
+	upgradeComponents('.mdl-switch','.mdl-textfield');
+	PF('editDlg').show();
+}
 
+function upgradeComponents() {
+	for ( var x in arguments) {
+		console.log(arguments[x]);
+		$(arguments[x]).each(function() {
+			componentHandler.upgradeElement(this);
+		});
+	}
+	console.log('upgraded');
+}
 function getRipple() {
 	for ( var i in arguments) {
 		console.log(arguments[i]);
 		var comp = $(PF(arguments[i]).jqId).get();
-		for(var x in comp){
+		for ( var x in comp) {
 			componentHandler.upgradeElements(comp[x]);
 		}
 	}

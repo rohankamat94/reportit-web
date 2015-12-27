@@ -271,6 +271,13 @@ th.ui-state-default {
 	border-style: none;
 }
 
+.mdl-button {
+	color: #fff !important;
+}
+
+.mdl-checkbox__label {
+	margin-left: 20px;
+}
 /* .ui-paginator.ui-paginator-bottom.ui-widget-header.ui-corner-bottom {
 	background: none;
 	padding: 10px;

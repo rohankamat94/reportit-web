@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns="http://www.w3.org/1999/xhtml"
@@ -37,8 +38,29 @@
 			</div>
 		</header>
 		<div class="mdl-layout__drawer">
-			<span class="mdl-layout-title">Title</span>
-			<nav class="mdl-navigation"></nav>
+			<span class="mdl-layout-title">ReportIt!</span>
+			<nav class="mdl-navigation">
+				<h:outputLink value="/CIRSWeb/faces/pages/users/index.xhtml"
+					styleClass="mdl-navigation__link">
+					Complaints
+				</h:outputLink>
+				<h:outputLink value="/CIRSWeb/faces/pages/categories/index.xhtml"
+					styleClass="mdl-navigation__link">
+					Categories
+				</h:outputLink>
+				<h:outputLink value="/CIRSWeb/faces/pages/users/index.xhtml"
+					styleClass="mdl-navigation__link">
+					User Credentials
+				</h:outputLink>
+				<h:outputLink value="/CIRSWeb/faces/pages/users/index.xhtml"
+					styleClass="mdl-navigation__link">
+					Statistics
+				</h:outputLink>
+				<h:outputLink value="/CIRSWeb/faces/pages/users/index.xhtml"
+					styleClass="mdl-navigation__link">
+					Logout
+				</h:outputLink>
+			</nav>
 		</div>
 		<main class="mdl-layout__content">
 		<div class="page-content">

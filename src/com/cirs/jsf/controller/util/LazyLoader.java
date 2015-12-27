@@ -35,9 +35,9 @@ public class LazyLoader<T extends CirsEntity> extends LazyDataModel<T> {
 		}
 		setRowCount(dao.countAllLazy(filters).intValue());
 		List<T> resultList = dao.findAllLazy(first, pageSize, filters, sortMap);
-		for (T t : resultList) {
-			System.out.println(((User) t).getUserName());
-		}
+//		for (T t : resultList) {
+//			System.out.println(((User) t).getUserName());
+//		}
 		return resultList;
 
 	}
