@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<p:dialog widgetVar="editDlg" width="500px" height="250px"
+		resizable="false" draggable="false" style="background-color:white;"
+		closable="true" modal="true" header="Edit Category" appendTo="@(body)"
+		visible="#{categoryBean.selected ne null}"
+		id="editDialog">
+		<h:form id="editCategoryForm">
+			<p:panel>
+				<div
+					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<h:inputText class="mdl-textfield__input" type="text"
+						id="categoryNameInput" value="#{categoryBean.selected.name}" />
+					<label class="mdl-textfield__label" for="editCategoryForm:categoryNameInput">Name</label>
+				</div>
+
+				<label for="editCategoryForm:activeCheckBox"
+					class="mdl-switch mdl-js-switch mdl-js-ripple-effect"> <h:selectBooleanCheckbox
+						value="#{categoryBean.selected.active}" id="activeCheckBox"
+						styleClass="mdl-switch__input">
+					</h:selectBooleanCheckbox> <span class="mdl-checkbox__label">Active</span>
+				</label>
+
+			</p:panel>
+			<p:commandButton style="margin-left: 37%; margin-top: 90px;"
+				value="Save" widgetVar="saveBtn"
+				actionListener="#{categoryBean.editCategory}"
+				onclick="PF('editDlg').hide();"
+				update=":categoryForm:categoryTable, :categoryForm:deleteButton, :categoryForm:viewButton"
+				class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+				/>
+			<p:commandButton style="margin-left: 20px; margin-top: 90px;"
+				value="close" widgetVar="closeEditBtn"
+				class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+				onclick="PF('editDlg').hide()" />
+		</h:form>
+	</p:dialog>
+
+</ui:composition>

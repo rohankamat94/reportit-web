@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<p:dialog widgetVar="viewDlg" width="500px" height="250px"
+		resizable="false" visible="#{categoryBean.selected ne null}"
+		draggable="false" style="background-color:white;" closable="true"
+		modal="true"
+		header="#{categoryBean.selected.name}"
+		appendTo="@(body)" id="viewDialog">
+		<p:panelGrid columns="2" id="viewInfoPanel">
+			<p:outputLabel value="Name" />
+			<h:outputText value="#{categoryBean.selected.name}" />
+			
+			<p:outputLabel value="Active" />
+			<h:outputText value="#{categoryBean.selected.active}" />
+		</p:panelGrid>
+
+		<p:commandButton style="margin-left: 43%; margin-top: 150px;"
+			value="close" widgetVar="closeViewBtn"
+			class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+			onclick="PF('viewDlg').hide()" />
+	</p:dialog>
+
+</ui:composition>

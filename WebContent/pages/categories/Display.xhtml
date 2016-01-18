@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<h:form id="categoryForm">
+		<p:panel>
+			<p:dataTable value="#{categoryBean.categories}" var="category"
+				paginator="true" paginatorPosition="bottom" rows="5" lazy="true"
+				id="categoryTable" selection="#{categoryBean.selected}"
+				selectionMode="single"
+				tableStyleClass="mdl-data-table mdl-js-data-table"
+				rowsPerPageTemplate="5,10,15" tableStyle="width:100%"
+				styleClass="mdl-shadow--2dp" widgetVar="catTable">
+				<p:ajax event="rowSelect"
+					oncomplete="getRipple('viewBtn','deleteBtn');"
+					update=":categoryForm:deleteButton :categoryForm:viewButton :categoryForm:editButton" />
+				<p:ajax event="rowUnselect"
+					oncomplete="getRipple('viewBtn','deleteBtn');"
+					update=":categoryForm:deleteButton :categoryForm:viewButton :categoryForm:editButton" />
+				<p:ajax event="page" listener="#{categoryBean.onPageChange}"
+					update=":categoryForm:viewButton categoryForm:deleteButton :categoryForm:editButton" />
+				<p:ajax event="sort" oncomplete="PF('catTable').unselectAllRows();"
+					update=":categoryForm:viewButton categoryForm:deleteButton :categoryForm:editButton" />
+				<p:ajax event="filter"
+					oncomplete="PF('catTable').unselectAllRows();"
+					update=":categoryForm:viewButton categoryForm:deleteButton :categoryForm:editButton" />
+				<p:column headerText="Name" filterBy="#{category.name}"
+					sortBy="#{category.name}">
+					<h:outputText value="#{category.name}" />
+				</p:column>
+				<p:column headerText="Active" sortBy="#{category.active}">
+					<h:outputText value="#{category.active}" />
+				</p:column>
+			</p:dataTable>
+			<div class="button-container">
+
+				<p:commandButton value="Add" onclick="showAddCategory()"
+					actionListener="#{categoryBean.onAddClicked}"
+					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
+
+				<p:commandButton value="View" oncomplete="getRipple('closeViewBtn')"
+					style="margin-left:60px" update=":viewDialog"
+					disabled="#{categoryBean.selected eq null}" id="viewButton"
+					widgetVar="viewBtn"
+					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
+
+				<p:commandButton value="Edit" oncomplete="showEditCategory();"
+					style="margin-left:60px"
+					update=":editDialog"
+					disabled="#{categoryBean.selected eq null}" id="editButton"
+					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
+
+
+				<p:commandButton value="Delete" style="margin-left:60px"
+					widgetVar="deleteBtn"
+					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+					actionListener="#{categoryBean.deleteCategory}"
+					update=":categoryForm:categoryTable, :categoryForm:deleteButton, :categoryForm:viewButton :categoryForm:editButton "
+					id="deleteButton" disabled="#{categoryBean.selected eq null}" />
+
+			</div>
+		</p:panel>
+	</h:form>
+</ui:composition>

@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	template="/pages/template.xhtml">
+	<ui:define name="title">
+		Categories
+	</ui:define>
+	<ui:define name="header_title">
+		Categories
+	</ui:define>
+	<ui:define name="main_content">
+		<ui:include src="/pages/categories/Display.xhtml" />
+		<ui:include src="/pages/categories/Edit.xhtml" />
+		<ui:include src="/pages/categories/View.xhtml" />
+		<ui:include src="/pages/categories/Add.xhtml" />
+	</ui:define>
+</ui:composition>
