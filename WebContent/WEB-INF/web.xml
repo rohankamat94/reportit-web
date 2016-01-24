@@ -4,15 +4,6 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
 	<display-name>CIRSWeb</display-name>
-	
-	<servlet>
-		<servlet-name>Image Servlet</servlet-name>
-		<servlet-class>com.cirs.servlets.image.ImageServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Image Servlet</servlet-name>
-		<url-pattern>/image/*</url-pattern>
-	</servlet-mapping>
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -24,6 +15,14 @@
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>Image Servlet</servlet-name>
+		<servlet-class>com.cirs.servlets.image.ImageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Image Servlet</servlet-name>
+		<url-pattern>/image/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<display-name>My Servlet</display-name>
 		<servlet-name>com.cirs.webservice.BaseWebService</servlet-name>
 		<init-param>
@@ -33,6 +32,10 @@
 		<init-param>
 			<param-name>jersey.config.server.tracing</param-name>
 			<param-value>ALL</param-value>
+		</init-param>
+		<init-param>
+			<param-name>jersey.config.disableMoxyJson</param-name>
+			<param-value>true</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
