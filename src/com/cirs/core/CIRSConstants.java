@@ -16,9 +16,23 @@ public final class CIRSConstants {
 
 	public static final String IMAGE_ROOT = "C:\\CIRSServer\\images\\root";
 	private static final String USER_IMAGE = IMAGE_ROOT + "\\users\\";
+	private static final String COMPLAINT_IMAGE = IMAGE_ROOT + "\\complaints\\";
 
-	public static Path getUserImageDir() {
-		Path p = Paths.get(USER_IMAGE);
+	public static enum ImageDir {
+		USER(USER_IMAGE), COMPLAINT(COMPLAINT_IMAGE);
+		private String assocDir;
+
+		private ImageDir(String assocDir) {
+			this.assocDir = assocDir;
+		}
+
+		public String getAssocDir() {
+			return assocDir;
+		}
+	}
+
+	public static Path getImageDir(ImageDir dir) {
+		Path p = Paths.get(dir.getAssocDir());
 		if (!Files.exists(p, LinkOption.NOFOLLOW_LINKS)) {
 			try {
 				Files.createDirectories(p);

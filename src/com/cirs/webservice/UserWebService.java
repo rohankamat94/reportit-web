@@ -24,6 +24,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.cirs.core.CIRSConstants;
+import com.cirs.core.CIRSConstants.ImageDir;
 import com.cirs.dao.remote.UserDao;
 import com.cirs.entities.User;
 import com.cirs.exceptions.EntityNotFoundException;
@@ -40,7 +41,7 @@ public class UserWebService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<User> getAllUsers() {
-		return dao.findAll();
+		return dao.findAll(); 
 	}
 
 	/*
@@ -101,7 +102,7 @@ public class UserWebService {
 		} else {
 
 			String fileType = req.getContentType().split("/")[1];
-			java.nio.file.Path p = CIRSConstants.getUserImageDir().resolve(id + "." + fileType);
+			java.nio.file.Path p = CIRSConstants.getImageDir(ImageDir.USER).resolve(id + "." + fileType);
 			System.out.println("path in save " + p);
 			try {
 				synchronized (p) {
@@ -119,7 +120,7 @@ public class UserWebService {
 				e.printStackTrace();
 			}
 		}
-		return null;
+		return null; 
 	}
 
 	@POST
