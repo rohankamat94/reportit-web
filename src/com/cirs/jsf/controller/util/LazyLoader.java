@@ -30,14 +30,26 @@ public class LazyLoader<T extends CirsEntity> extends LazyDataModel<T> {
 			sortMap = Utils.getAsMap(sortField, (Object) (sortOrder == SortOrder.ASCENDING));
 		}
 		System.out.println(sortMap);
+		HashMap<String, Object> searchParams = new HashMap<>();
 		for (Map.Entry<String, Object> entry : filters.entrySet()) {
 			System.out.println("entry: " + entry.getKey() + " " + entry.getValue());
+			String key = entry.getKey();
+			Object value = entry.getValue();
+			if (key.contains(".")) {
+				String newKey = key.split("\\.")[0];
+				Object newValue = Utils.getAsMap(key.split("\\.")[1], value);
+				searchParams.put(newKey, newValue);
+			}
+			else{
+				searchParams.put(entry.getKey(), entry.getValue());
+			}
 		}
-		setRowCount(dao.countAllLazy(filters).intValue());
-		List<T> resultList = dao.findAllLazy(first, pageSize, filters, sortMap);
-//		for (T t : resultList) {
-//			System.out.println(((User) t).getUserName());
-//		}
+		
+		setRowCount(dao.countAllLazy(searchParams).intValue());
+		List<T> resultList = dao.findAllLazy(first, pageSize, searchParams, sortMap);
+		// for (T t : resultList) {
+		// System.out.println(((User) t).getUserName());
+		// }
 		return resultList;
 
 	}
