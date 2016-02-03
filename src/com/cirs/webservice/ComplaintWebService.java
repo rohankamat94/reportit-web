@@ -19,12 +19,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import com.cirs.core.CIRSConstants;
 import com.cirs.core.CIRSConstants.ImageDir;
 import com.cirs.dao.remote.ComplaintDao;
 import com.cirs.entities.Complaint;
+import com.cirs.entities.Complaint.Status;
 import com.cirs.exceptions.EntityNotCreatedException;
 
 @Path("/complaint")
@@ -85,9 +85,11 @@ public class ComplaintWebService {
 	public Response addComplaint(Complaint complaint) {
 		try {
 			System.out.println(complaint);
+			complaint.setStatus(Status.PENDING);
 			dao.create(complaint);
+			
 			System.out.println("after create complaint id =" + complaint );
-			return Response.status(Status.CREATED).type(MediaType.APPLICATION_JSON)
+			return Response.status(201).type(MediaType.APPLICATION_JSON)
 					.entity(complaint).build();
 		} catch (EntityNotCreatedException e) {
 			e.printStackTrace();

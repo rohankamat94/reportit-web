@@ -24,7 +24,7 @@ import com.cirs.util.Utils;
 
 @ManagedBean
 @ViewScoped
-public class CategoryBean implements Serializable {
+public class CategoryBean extends BaseEntityController<Category> implements Serializable {
 	private LazyDataModel<Category> categories;
 
 	@EJB(beanName = "categoryDao")
@@ -58,12 +58,9 @@ public class CategoryBean implements Serializable {
 		return selected;
 	}
 
+	@Override
 	public void setSelected(Category selected) {
 		this.selected = selected;
-	}
-
-	public void onPageChange(PageEvent event) {
-		setSelected(null);
 	}
 
 	public void deleteCategory() {
@@ -118,5 +115,4 @@ public class CategoryBean implements Serializable {
 			e.printStackTrace();
 		}
 	}
-
 }

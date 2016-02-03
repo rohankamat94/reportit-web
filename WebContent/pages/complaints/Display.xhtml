@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<h:form id="complaintForm">
+		<p:panel>
+			<p:dataTable value="#{complaintBean.complaints}" var="complaint"
+				paginator="true" paginatorPosition="bottom" rows="5" lazy="true"
+				id="complaintTable" selection="#{complaintBean.selected}"
+				selectionMode="single"
+				tableStyleClass="mdl-data-table mdl-js-data-table"
+				rowsPerPageTemplate="5,10,15" tableStyle="width:100%"
+				styleClass="mdl-shadow--2dp" widgetVar="compTable">
+
+				<p:ajax event="rowSelect" oncomplete="getRipple('viewBtn','editBtn');"
+					update=" :complaintForm:viewButton :complaintForm:editButton" />
+				<p:ajax event="rowUnselect" oncomplete="getRipple('viewBtn','editBtn');"
+					update=" :complaintForm:viewButton :complaintForm:editButton" />
+				<p:ajax event="page" listener="#{complaintBean.onPageChange}"
+					update=":complaintForm:viewButton  :complaintForm:editButton" />
+				<p:ajax event="sort" oncomplete="PF('compTable').unselectAllRows();"
+					update=":complaintForm:viewButton  :complaintForm:editButton" />
+				<p:ajax event="filter"
+					oncomplete="PF('compTable').unselectAllRows();"
+					update=":complaintForm:viewButton  :complaintForm:editButton" />
+
+
+				<p:column headerText="Title" filterBy="#{complaint.title}"
+					sortBy="#{complaint.title}">
+					<h:outputText value="#{complaint.title}" />
+				</p:column>
+				<p:column headerText="Description"
+					filterBy="#{complaint.description}"
+					sortBy="#{complaint.description}">
+					<h:outputText value="#{complaint.description}" />
+				</p:column>
+				<p:column headerText="Category" sortBy="#{complaint.category.name}"
+					filterBy="complaint.category.name">
+					<h:outputText value="#{complaint.category.name}" />
+				</p:column>
+				<p:column headerText="Username"
+					filterBy="#{complaint.user.userName}"
+					sortBy="#{complaint.user.userName}">
+					<h:outputText value="#{complaint.user.userName}" />
+				</p:column>
+				<p:column headerText="Status">
+					<h:outputText value="#{complaint.status}"/>
+				</p:column>
+				<p:column headerText="Timestamp" sortBy="#{complaint.timestamp}">
+					<h:outputText value="#{complaint.timestamp}">
+						<f:convertDateTime pattern="dd MMM yyyy HH:mm:ss" />
+					</h:outputText>
+				</p:column>
+
+
+			</p:dataTable>
+			<div class="button-container">
+				<p:commandButton value="View" oncomplete="getRipple('closeViewBtn')"
+					style="margin-left:60px"
+					disabled="#{complaintBean.selected eq null}" id="viewButton"
+					widgetVar="viewBtn"
+					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
+
+				<p:commandButton value="Change Status" oncomplete="showEditCategory();getRipple('closeEditBtn','saveBtn')"
+					style="margin-left:60px" update=":editDialog" widgetVar="editBtn"
+					disabled="#{complaintBean.selected eq null}" id="editButton"
+					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
+			</div>
+		</p:panel>
+	</h:form>
+</ui:composition>
