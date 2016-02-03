@@ -278,6 +278,17 @@ th.ui-state-default {
 .mdl-checkbox__label {
 	margin-left: 20px;
 }
+
+.buttonDisplayArea{
+	display:table-row;
+}
+.buttonDisplayArea button{
+	display:table-cell;
+}
+.buttonDisplayArea>.buttonDisplayPadding {
+	display:table-cell;
+	width:50%;
+}
 /* .ui-paginator.ui-paginator-bottom.ui-widget-header.ui-corner-bottom {
 	background: none;
 	padding: 10px;

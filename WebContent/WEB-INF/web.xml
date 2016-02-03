@@ -30,8 +30,12 @@
 			<param-value>com.cirs.webservice</param-value>
 		</init-param>
 		<init-param>
-			<param-name>jersey.config.server.tracing</param-name>
+			<param-name>jersey.config.server.tracing.type</param-name>
 			<param-value>ALL</param-value>
+		</init-param>
+		<init-param>
+			<param-name>jersey.config.server.tracing.threshold</param-name>
+			<param-value>VERBOSE</param-value>
 		</init-param>
 		<init-param>
 			<param-name>jersey.config.disableMoxyJson</param-name>
