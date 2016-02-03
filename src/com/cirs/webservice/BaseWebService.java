@@ -8,6 +8,7 @@ import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.internal.inject.Providers;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
+import org.glassfish.jersey.server.TracingUtils;
 
 import com.cirs.webservice.util.GsonMessageBodyHandler;
 
@@ -18,6 +19,7 @@ public class BaseWebService extends ResourceConfig {
 		packages("com.cirs.webservice.util");
 		register(GsonMessageBodyHandler.class);
 		register(LoggingFilter.class);
+		property(CommonProperties.MOXY_JSON_FEATURE_DISABLE, true);
 		System.out.println("is registered " + isRegistered(GsonMessageBodyHandler.class));
 	}
 }

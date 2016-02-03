@@ -33,7 +33,7 @@ public final class GsonMessageBodyHandler implements MessageBodyWriter<Object>, 
     //Customize the gson behavior here
     private Gson getGson() {
         if (gson == null) {
-            final GsonBuilder gsonBuilder = new GsonBuilder();
+            final GsonBuilder gsonBuilder = new GsonBuilder().setDateFormat("dd MMM yyyy HH:mm:ss");
             gson = gsonBuilder.disableHtmlEscaping()
                     .create();
         }
