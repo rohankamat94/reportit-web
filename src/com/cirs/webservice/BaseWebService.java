@@ -3,12 +3,8 @@ package com.cirs.webservice;
 import javax.ws.rs.ApplicationPath;
 
 import org.glassfish.jersey.CommonProperties;
-import org.glassfish.jersey.client.ClientProperties;
 import org.glassfish.jersey.filter.LoggingFilter;
-import org.glassfish.jersey.internal.inject.Providers;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.server.ServerProperties;
-import org.glassfish.jersey.server.TracingUtils;
 
 import com.cirs.webservice.util.GsonMessageBodyHandler;
 

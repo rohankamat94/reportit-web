@@ -9,7 +9,6 @@ import org.primefaces.model.SortOrder;
 
 import com.cirs.dao.remote.Dao;
 import com.cirs.entities.CirsEntity;
-import com.cirs.entities.User;
 import com.cirs.util.Utils;
 
 @SuppressWarnings("serial")

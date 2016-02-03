@@ -4,8 +4,6 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.junit.experimental.categories.Categories;
-
 import com.cirs.dao.remote.CategoryDao;
 import com.cirs.entities.Category;
 import com.cirs.exceptions.EntityNotCreatedException;

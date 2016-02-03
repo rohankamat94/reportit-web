@@ -10,7 +10,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
-import org.primefaces.event.data.PageEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
@@ -20,7 +19,6 @@ import com.cirs.exceptions.EntityNotCreatedException;
 import com.cirs.exceptions.EntityNotFoundException;
 import com.cirs.jsf.controller.util.LazyLoader;
 import com.cirs.jsf.util.JsfUtils;
-import com.cirs.util.Utils;
 
 @ManagedBean
 @ViewScoped
