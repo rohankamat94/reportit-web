@@ -6,11 +6,11 @@
 	<h:form id="complaintForm">
 		<p:panel>
 			<p:dataTable value="#{complaintBean.complaints}" var="complaint"
-				paginator="true" paginatorPosition="bottom" rows="5" lazy="true"
+				paginator="true" paginatorPosition="bottom" rows="10" lazy="true"
 				id="complaintTable" selection="#{complaintBean.selected}"
 				selectionMode="single"
 				tableStyleClass="mdl-data-table mdl-js-data-table"
-				rowsPerPageTemplate="5,10,15" tableStyle="width:100%"
+				tableStyle="width:100%"
 				styleClass="mdl-shadow--2dp" widgetVar="compTable">
 
 				<p:ajax event="rowSelect" oncomplete="getRipple('viewBtn','editBtn');"

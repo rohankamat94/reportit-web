@@ -10,8 +10,8 @@
 				id="categoryTable" selection="#{categoryBean.selected}"
 				selectionMode="single"
 				tableStyleClass="mdl-data-table mdl-js-data-table"
-				rowsPerPageTemplate="5,10,15" tableStyle="width:100%"
-				styleClass="mdl-shadow--2dp" widgetVar="catTable">
+				tableStyle="width:100%" styleClass="mdl-shadow--2dp"
+				widgetVar="catTable">
 				<p:ajax event="rowSelect"
 					oncomplete="getRipple('viewBtn','deleteBtn');"
 					update=":categoryForm:deleteButton :categoryForm:viewButton :categoryForm:editButton" />
@@ -46,8 +46,7 @@
 					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
 
 				<p:commandButton value="Edit" oncomplete="showEditCategory();"
-					style="margin-left:60px"
-					update=":editDialog"
+					style="margin-left:60px" update=":editDialog"
 					disabled="#{categoryBean.selected eq null}" id="editButton"
 					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
 

@@ -16,7 +16,7 @@
 
 	<servlet>
 		<servlet-name>Image Servlet</servlet-name>
-		<servlet-class>com.cirs.servlets.image.ImageServlet</servlet-class>
+		<servlet-class>com.cirs.servlets.ImageServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Image Servlet</servlet-name>
@@ -56,5 +56,4 @@
 		<param-name>primefaces.THEME</param-name>
 		<param-value>none</param-value>
 	</context-param>
-
 </web-app>

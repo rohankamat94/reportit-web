@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
@@ -40,15 +40,15 @@
 		<div class="mdl-layout__drawer">
 			<span class="mdl-layout-title">ReportIt!</span>
 			<nav class="mdl-navigation">
-				<h:outputLink value="/CIRSWeb/faces/pages/complaints/index.xhtml"
+				<h:outputLink value="#{navBean.getNavUrl('complaints')}"
 					styleClass="mdl-navigation__link">
 					Complaints
 				</h:outputLink>
-				<h:outputLink value="/CIRSWeb/faces/pages/categories/index.xhtml"
+				<h:outputLink value="#{navBean.getNavUrl('categories')}"
 					styleClass="mdl-navigation__link">
 					Categories
 				</h:outputLink>
-				<h:outputLink value="/CIRSWeb/faces/pages/users/index.xhtml"
+				<h:outputLink value="#{navBean.getNavUrl('users')}"
 					styleClass="mdl-navigation__link">
 					User Credentials
 				</h:outputLink>
@@ -56,10 +56,10 @@
 					styleClass="mdl-navigation__link">
 					Statistics
 				</h:outputLink>
-				<h:outputLink value="/CIRSWeb/faces/pages/users/index.xhtml"
-					styleClass="mdl-navigation__link">
+				<button  jsf:action="#{loginBean.logout}"
+					class="linkbutton mdl-navigation__link">
 					Logout
-				</h:outputLink>
+				</button>
 			</nav>
 		</div>
 		<main class="mdl-layout__content">

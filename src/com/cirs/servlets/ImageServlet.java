@@ -1,4 +1,4 @@
-package com.cirs.servlets.image;
+package com.cirs.servlets;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -13,7 +13,9 @@ public final class CIRSConstants {
 	public static final String IMAGE_ROOT = "C:\\CIRSServer\\images\\root";
 	private static final String USER_IMAGE = IMAGE_ROOT + "\\users\\";
 	private static final String COMPLAINT_IMAGE = IMAGE_ROOT + "\\complaints\\";
-
+	
+	public static final String LOGIN_ATTRIBUTE_KEY="admin";
+	
 	public static enum ImageDir {
 		USER(USER_IMAGE), COMPLAINT(COMPLAINT_IMAGE);
 		private String assocDir;

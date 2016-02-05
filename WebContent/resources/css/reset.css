@@ -279,15 +279,32 @@ th.ui-state-default {
 	margin-left: 20px;
 }
 
-.buttonDisplayArea{
-	display:table-row;
+.buttonDisplayArea {
+	display: table-row;
 }
-.buttonDisplayArea button{
-	display:table-cell;
+
+.buttonDisplayArea button {
+	display: table-cell;
 }
+
 .buttonDisplayArea>.buttonDisplayPadding {
-	display:table-cell;
-	width:50%;
+	display: table-cell;
+	width: 50%;
+}
+
+.linkbutton {
+	background: inherit;
+	border: none;
+	text-align: left;
+}
+.linkbutton:HOVER{
+	cursor: pointer;
+}
+.linkbutton:FOCUS{
+	border:none;
+}
+.linkbutton:ACTIVE {
+	border: none;
 }
 /* .ui-paginator.ui-paginator-bottom.ui-widget-header.ui-corner-bottom {
 	background: none;

@@ -9,8 +9,8 @@
 				paginatorPosition="bottom" rows="5" id="userTable" lazy="true"
 				selection="#{userBean.selected}" selectionMode="single"
 				tableStyleClass="mdl-data-table mdl-js-data-table"
-				rowsPerPageTemplate="5,10,15" tableStyle="width:100%"
-				styleClass="mdl-shadow--2dp" widgetVar="usrTable">
+				tableStyle="width:100%" styleClass="mdl-shadow--2dp"
+				widgetVar="usrTable">
 				<p:ajax event="rowSelect"
 					oncomplete="getRipple('viewBtn','deleteBtn');"
 					update=":userForm:deleteButton :userForm:viewButton" />
