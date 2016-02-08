@@ -1,5 +1,7 @@
 package com.cirs.jsf.controller.util;
 
+import static com.cirs.core.CIRSConstants.LOGIN_ATTRIBUTE_KEY;
+
 import java.io.IOException;
 
 import javax.servlet.Filter;
@@ -13,9 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.jasper.runtime.JspFactoryImpl;
-
-import static com.cirs.core.CIRSConstants.*;
 import com.cirs.jsf.util.JsfUtils;
 
 @WebFilter("/faces/pages/*")
