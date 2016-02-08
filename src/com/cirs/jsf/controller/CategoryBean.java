@@ -19,6 +19,7 @@ import com.cirs.exceptions.EntityNotCreatedException;
 import com.cirs.exceptions.EntityNotFoundException;
 import com.cirs.jsf.controller.util.LazyLoader;
 import com.cirs.jsf.util.JsfUtils;
+import static com.cirs.util.Utils.*;
 
 @ManagedBean
 @ViewScoped
@@ -42,6 +43,12 @@ public class CategoryBean extends BaseEntityController<Category> implements Seri
 											// to name
 					}
 					return super.load(first, pageSize, sortField, sortOrder, filters);
+				}
+
+				@Override
+				public Map<String, Object> getSearchParams() {
+					Map<String, Object> map = getAsMap("admin", getAsMap("id", getAdmin().getId()));
+					return map;
 				}
 			};
 		}
@@ -71,6 +78,7 @@ public class CategoryBean extends BaseEntityController<Category> implements Seri
 		System.out.println("Here");
 		Category cat = new Category();
 		cat.setActive(false);
+		cat.setAdmin(getAdmin());
 		setCreate(cat);
 	}
 

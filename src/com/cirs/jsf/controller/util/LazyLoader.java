@@ -12,7 +12,7 @@ import com.cirs.entities.CirsEntity;
 import com.cirs.util.Utils;
 
 @SuppressWarnings("serial")
-public class LazyLoader<T extends CirsEntity> extends LazyDataModel<T> {
+public abstract class LazyLoader<T extends CirsEntity> extends LazyDataModel<T> {
 	Dao<T> dao;
 
 	public LazyLoader(Dao<T> dao) {
@@ -43,6 +43,7 @@ public class LazyLoader<T extends CirsEntity> extends LazyDataModel<T> {
 				searchParams.put(entry.getKey(), entry.getValue());
 			}
 		}
+		searchParams.putAll(getSearchParams());
 		
 		setRowCount(dao.countAllLazy(searchParams).intValue());
 		List<T> resultList = dao.findAllLazy(first, pageSize, searchParams, sortMap);
@@ -52,7 +53,9 @@ public class LazyLoader<T extends CirsEntity> extends LazyDataModel<T> {
 		return resultList;
 
 	}
-
+	
+	public abstract Map<String, Object> getSearchParams();
+	
 	@Override
 	public Object getRowKey(T object) {
 		return object.getId();

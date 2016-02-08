@@ -1,17 +1,17 @@
 package com.cirs.jsf.controller;
 
+import static com.cirs.core.CIRSConstants.LOGIN_ATTRIBUTE_KEY;
+
+import java.io.IOException;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import static com.cirs.core.CIRSConstants.*;
-
-import java.io.IOException;
 
 import com.cirs.dao.remote.AdminDao;
+import com.cirs.entities.Admin;
 import com.cirs.jsf.util.JsfUtils;
 
 @ManagedBean
@@ -43,10 +43,11 @@ public class LoginBean {
 
 	public void login() throws IOException {
 		System.out.println("Logging in with" + username + " " + password);
-		if (dao.verifyAdmin(username, password)) {
+		Admin admin=dao.verifyAdmin(username, password);
+		if (admin!=null) {
 			ExternalContext context = JsfUtils.getExternalContext();
 			if (context != null) {
-				context.getSessionMap().put(LOGIN_ATTRIBUTE_KEY, username);
+				context.getSessionMap().put(LOGIN_ATTRIBUTE_KEY, admin);
 			}
 			if(remember){
 				JsfUtils.addCookie((HttpServletResponse) context.getResponse(), LOGIN_ATTRIBUTE_KEY, username, 60*60*24*7*52);
@@ -58,14 +59,15 @@ public class LoginBean {
 		}
 	}
 
-	public String logout() {
+	public void logout() throws IOException {
 		System.out.println("Logging out");
 		ExternalContext context = JsfUtils.getExternalContext();
 		if (context != null) {
 			context.getSessionMap().remove(LOGIN_ATTRIBUTE_KEY);
 			JsfUtils.removeCookie(JsfUtils.getHttpServletResponse(), LOGIN_ATTRIBUTE_KEY);
 		}
-		return JsfUtils.getExternalContext().getRequestContextPath() + "/faces/login.xhtml";
+		String redirectTo= JsfUtils.getExternalContext().getRequestContextPath() + "/faces/login.xhtml";
+		JsfUtils.getExternalContext().redirect(redirectTo);
 	}
 
 	public boolean getRemember() {

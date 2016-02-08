@@ -1,4 +1,4 @@
-	
+
 <!DOCTYPE html>
 <html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
@@ -31,16 +31,19 @@
 						name="header_title" />
 				</span>
 
-				<div class="mdl-layout-spacer">
-					<!-- Navigation. We hide it in small screens. -->
-					<nav class="mdl-navigation mdl-layout--large-screen-only"></nav>
-				</div>
+				<div class="mdl-layout-spacer"></div>
+				<!-- Navigation. We hide it in small screens. -->
+				<nav class="mdl-navigation mdl-layout--large-screen-only">
+					<form jsf:id="navForm" class="mdl-navigation__link">
+						<button class="linkbutton" jsf:action="#{loginBean.logout}">Logout</button>
+					</form>
+				</nav>
 			</div>
 		</header>
 		<div class="mdl-layout__drawer">
 			<span class="mdl-layout-title">ReportIt!</span>
 			<nav class="mdl-navigation">
-				<h:outputLink value="#{navBean.getNavUrl('categories')}"
+				<h:outputLink value="#{navBean.getNavUrl('complaints')}"
 					styleClass="mdl-navigation__link">
 					Complaints
 				</h:outputLink>
@@ -56,10 +59,7 @@
 					styleClass="mdl-navigation__link">
 					Statistics
 				</h:outputLink>
-				<button  jsf:action="#{loginBean.logout}"
-					class="linkbutton mdl-navigation__link">
-					Logout
-				</button>
+
 			</nav>
 		</div>
 		<main class="mdl-layout__content">

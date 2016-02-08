@@ -1,5 +1,9 @@
 package com.cirs.jsf.controller;
 
+import static com.cirs.util.Utils.getAsMap;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.ejb.EJB;
@@ -26,7 +30,14 @@ public class ComplaintBean extends BaseEntityController<Complaint> {
 
 	public LazyDataModel<Complaint> getComplaints() {
 		if (complaints == null) {
-			complaints = new LazyLoader<>(dao);
+			complaints = new LazyLoader<Complaint>(dao) {
+				@Override
+				public Map<String, Object> getSearchParams() {
+					Map<String, Object> map = new HashMap<>();
+					map.put("user", getAsMap("admin", getAsMap("id", getAdmin().getId())));
+					return map;
+				}
+			};
 		}
 		return complaints;
 	}
@@ -49,7 +60,7 @@ public class ComplaintBean extends BaseEntityController<Complaint> {
 	}
 
 	public Status getNewStatus() {
-		return selected!=null ? selected.getStatus() : newStatus;
+		return selected != null ? selected.getStatus() : newStatus;
 	}
 
 	public void setNewStatus(Status newStatus) {

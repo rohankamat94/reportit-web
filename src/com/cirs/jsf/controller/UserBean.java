@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -13,7 +15,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.event.data.PageEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -23,11 +24,12 @@ import com.cirs.entities.User;
 import com.cirs.entities.UserUploadResponse;
 import com.cirs.jsf.controller.util.LazyLoader;
 import com.cirs.jsf.util.JsfUtils;
+import com.cirs.util.Utils;
 
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
-public class UserBean implements Serializable {
+public class UserBean extends BaseEntityController<User> implements Serializable {
 
 	@EJB(beanName = "userDao")
 	UserDao dao;
@@ -64,7 +66,7 @@ public class UserBean implements Serializable {
 				while (fis.read(b) != -1) {
 					fos.write(b);
 				}
-				response = dao.upload(f);
+				response = dao.upload(getAdmin(), f);
 				System.out.println(response.getEntitiesCreated() + " " + response.getErrors());
 				int newUser = response.getEntitiesCreated();
 				if (newUser > 0) {
@@ -83,10 +85,6 @@ public class UserBean implements Serializable {
 		JsfUtils.endLoader();
 	}
 
-	public void onPageChange(PageEvent event) {
-		setSelected(null);
-	}
-
 	public void clear() {
 		System.out.println("in listener");
 		response = null;
@@ -103,7 +101,14 @@ public class UserBean implements Serializable {
 	public LazyLoader<User> getUsers() {
 		if (users == null) {
 			System.out.println("here");
-			users = new LazyLoader<>(dao);
+			users = new LazyLoader<User>(dao) {
+				@Override
+				public Map<String, Object> getSearchParams() {
+					Map<String, Object> map = new HashMap<>();
+					map.put("admin", Utils.getAsMap("id", getAdmin().getId()));
+					return map;
+				}
+			};
 		}
 		return users;
 	}

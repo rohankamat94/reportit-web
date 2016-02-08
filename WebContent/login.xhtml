@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Hello</title>
+	<h:outputStylesheet name="css/material.min.css" />
+	<h:outputStylesheet name="css/reset.css" />
+	<h:outputScript name="js/scripts.js" />
+	<h:outputScript name="js/material.min.js" />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+</h:head>
+<h:body>
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+		<header class="mdl-layout__header">
+			<div class="mdl-layout__header-row">
+				<!-- Title -->
+				<span class="mdl-layout-title">ReportIt! Admin Login</span>
+				<!-- Add spacer, to align navigation to the right -->
+				<div class="mdl-layout-spacer"></div>
+			</div>
+		</header>
+		<main class="mdl-layout__content"> <h:form id="loginForm"
+			prependId="false">
+			<div class="page-content" style="width: 200px; margin: 100px auto;">
+				<!-- Your content goes here -->
+
+				<div class="mdl-textfield mdl-js-textfield">
+					<input type="text" jsf:id="username" class="mdl-textfield__input"
+						jsf:value="#{loginBean.username}" id="username" /> <label
+						class="mdl-textfield__label" for="username">Username</label>
+
+				</div>
+				<div class="mdl-textfield mdl-js-textfield">
+					<input class="mdl-textfield__input" type="password" id="password"
+						jsf:value="#{loginBean.password}" /> <label
+						class="mdl-textfield__label" for="password">Password</label>
+				</div>
+				<div style="display: table-row">
+					<div style="display: table-cell; width: 33.33%"></div>
+
+					<button style="display: table-cell" jsf:action="#{loginBean.login}"
+						class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+						<i class="material-icons">input</i>
+					</button>
+					<div style="display: table-cell; width: 33.33%"></div>
+				</div>
+				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect"
+					for="remember"> <input type="checkbox" id="remember"
+					class="mdl-checkbox__input" jsf:value="#{loginBean.remember}" /><span
+					class="mdl-checkbox__label">Remember me</span>
+				</label>
+
+			</div>
+		</h:form> </main>
+	</div>
+
+</h:body>
+
+</html>

@@ -293,16 +293,21 @@ th.ui-state-default {
 }
 
 .linkbutton {
+	padding-left: 0px;
+	width: inherit;
+	color: #fff;
 	background: inherit;
 	border: none;
-	text-align: left;
 }
-.linkbutton:HOVER{
+
+.linkbutton:HOVER {
 	cursor: pointer;
 }
-.linkbutton:FOCUS{
-	border:none;
+
+.linkbutton:FOCUS {
+	border: none;
 }
+
 .linkbutton:ACTIVE {
 	border: none;
 }
