@@ -26,6 +26,7 @@ import com.cirs.core.CIRSConstants;
 import com.cirs.core.CIRSConstants.ImageDir;
 import com.cirs.dao.remote.UserDao;
 import com.cirs.entities.User;
+import com.cirs.entities.User.UserTO;
 import com.cirs.exceptions.EntityNotFoundException;
 
 @Path("/user")
@@ -39,8 +40,8 @@ public class UserWebService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<User> getAllUsers() {
-		return dao.findAll(); 
+	public List<UserTO> getAllUsers() {
+		return dao.getUserWithComplaints();
 	}
 
 	/*
@@ -119,7 +120,7 @@ public class UserWebService {
 				e.printStackTrace();
 			}
 		}
-		return null; 
+		return null;
 	}
 
 	@POST
@@ -127,7 +128,8 @@ public class UserWebService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response verifyCredentials(User user) {
 		System.out.println("here in verify");
-		User u = dao.verifyCredentials(user.getUserName(), user.getPassword()); 
-		return u!=null? Response.status(200).type(MediaType.APPLICATION_JSON).entity(u).build() : Response.status(404).build();
+		User u = dao.verifyCredentials(user.getUserName(), user.getPassword());
+		return u != null ? Response.status(200).type(MediaType.APPLICATION_JSON).entity(u).build()
+				: Response.status(404).build();
 	}
 }

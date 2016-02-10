@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ import com.cirs.core.CIRSConstants;
 import com.cirs.core.CIRSConstants.ImageDir;
 import com.cirs.dao.remote.ComplaintDao;
 import com.cirs.entities.Complaint;
+import com.cirs.entities.Complaint.ComplaintTO;
 import com.cirs.entities.Complaint.Status;
 import com.cirs.exceptions.EntityNotCreatedException;
 
@@ -32,10 +34,10 @@ public class ComplaintWebService {
 
 	@EJB(beanName = "complaintDao")
 	private ComplaintDao dao;
-	
+
 	@Context
 	HttpServletRequest req;
-	
+
 	@PUT
 	@Path("/image/{id}")
 	@Consumes("image/*")
@@ -69,16 +71,16 @@ public class ComplaintWebService {
 				e.printStackTrace();
 			}
 		}
-		return null; 
+		return null;
 	}
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Complaint> getComplaints(){
-		System.out.println("dao null " + (dao==null));
-		return dao.findAll(); 	
-	} 
-	
+	public List<ComplaintTO> getComplaints() {
+		System.out.println("dao null " + (dao == null));
+		return dao.getComplaintwithComments();
+	}
+
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -87,10 +89,9 @@ public class ComplaintWebService {
 			System.out.println(complaint);
 			complaint.setStatus(Status.PENDING);
 			dao.create(complaint);
-			
-			System.out.println("after create complaint id =" + complaint );
-			return Response.status(201).type(MediaType.APPLICATION_JSON)
-					.entity(complaint).build();
+
+			System.out.println("after create complaint id =" + complaint);
+			return Response.status(201).type(MediaType.APPLICATION_JSON).entity(complaint).build();
 		} catch (EntityNotCreatedException e) {
 			e.printStackTrace();
 			return Response.status(400).type(MediaType.APPLICATION_JSON)
