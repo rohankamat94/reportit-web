@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +16,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -76,11 +76,12 @@ public class ComplaintWebService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ComplaintTO> getComplaints() {
+	public List<ComplaintTO> getComplaints(@QueryParam("adminId") Long adminId) {
 		System.out.println("dao null " + (dao == null));
-		return dao.getComplaintwithComments();
+		return dao.getComplaintwithComments(adminId);
 	}
 
+	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

@@ -94,10 +94,10 @@ public class UserBean extends BaseEntityController<User> implements Serializable
 		return sampleFile;
 	}
 
-	public String getMessage() {
+/*	public String getMessage() {
 		return dao.findAll().toString();
 	}
-
+*/
 	public LazyLoader<User> getUsers() {
 		if (users == null) {
 			System.out.println("here");

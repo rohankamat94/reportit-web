@@ -20,6 +20,7 @@ import javax.ws.rs.ext.Provider;
 
 import org.primefaces.json.JSONObject;
 
+import com.cirs.entities.Admin;
 import com.cirs.entities.Category;
 import com.cirs.entities.Comment;
 import com.cirs.entities.Complaint;
@@ -42,10 +43,23 @@ public final class GsonMessageBodyHandler implements MessageBodyWriter<Object>, 
 
 	private Gson gson;
 
+	private static class AdminExclusionStrategy implements ExclusionStrategy {
+		@Override
+		public boolean shouldSkipClass(Class<?> clazz) {
+			return clazz.equals(Admin.class);
+		}
+
+		@Override
+		public boolean shouldSkipField(FieldAttributes f) {
+			return false;
+		}
+	}
+
 	// Customize the gson behavior here
 	private Gson getGson() {
 		if (gson == null) {
-			final GsonBuilder gsonBuilder = new GsonBuilder().setDateFormat("dd MMM yyyy HH:mm:ss");
+			final GsonBuilder gsonBuilder = new GsonBuilder().setDateFormat("dd MMM yyyy HH:mm:ss")
+					.addSerializationExclusionStrategy(new AdminExclusionStrategy());
 			gson = gsonBuilder.disableHtmlEscaping().create();
 		}
 		return gson;

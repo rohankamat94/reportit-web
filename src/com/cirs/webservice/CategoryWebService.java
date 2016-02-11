@@ -1,6 +1,7 @@
 package com.cirs.webservice;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ejb.EJB;
 import javax.ws.rs.DefaultValue;
@@ -20,10 +21,12 @@ public class CategoryWebService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Category> findAll(@QueryParam("activeOnly") @DefaultValue("true") boolean activeOnly) {
+	public List<Category> findAll(@QueryParam("adminId") Long adminId,
+			@QueryParam("activeOnly") @DefaultValue("true") boolean activeOnly) {
+		List<Category> result = dao.findAll(adminId);
 		if (activeOnly) {
-			return dao.findAllActive();
+			return result.stream().filter(c -> c.getActive() == true).collect(Collectors.toList());
 		}
-		return dao.findAll();
+		return result;
 	}
 }
