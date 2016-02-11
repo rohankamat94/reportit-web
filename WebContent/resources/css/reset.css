@@ -311,6 +311,20 @@ th.ui-state-default {
 .linkbutton:ACTIVE {
 	border: none;
 }
+
+.comment-info {
+	font-size: smaller;
+	font-weight: bold;
+}
+
+.comment-data {
+	font-size: medium;
+}
+
+.comment-rule {
+	margin: 5px 0;
+}
+
 /* .ui-paginator.ui-paginator-bottom.ui-widget-header.ui-corner-bottom {
 	background: none;
 	padding: 10px;

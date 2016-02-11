@@ -82,4 +82,9 @@ public class ComplaintBean extends BaseEntityController<Complaint> {
 			e.printStackTrace();
 		}
 	}
+	
+	public String viewComplaint(){
+		String viewComplaint="View.xhtml?faces-redirect=true&complaintId="+selected.getId();
+		return viewComplaint;
+	}
 }

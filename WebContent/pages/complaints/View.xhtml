@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf" template="/pages/template.xhtml">
+	<f:metadata>
+		<f:viewParam name="complaintId"
+			value="#{viewComplaintBean.complaintId}" />
+		<f:event listener="#{viewComplaintBean.init()}" type="preRenderView"></f:event>
+	</f:metadata>
+	<ui:define name="title">
+		Complaint
+	</ui:define>
+	<ui:define name="header_title">
+		Complaint
+	</ui:define>
+	<ui:define name="main_content">
+		<div style="width: 800px; margin-left: auto; margin-right: auto;"
+			jsf:rendered="#{viewComplaintBean.complaint ne null}">
+			<div>
+				<h3>#{viewComplaintBean.complaint.title}</h3>
+			</div>
+			<div style="margin-right: 50px; width: 300px; float: left">
+				<h:graphicImage style="width: 300px; height: 300px;"
+					value="http://localhost:8080/CIRSWeb/image/complaints/#{viewComplaintBean.complaint.id}" />
+			</div>
+			<div class="mdl-card mdl-shadow--2dp">
+				<div class="mdl-card__supporting-text">
+					<h5>Description</h5>
+					#{viewComplaintBean.complaint.description}
+					<hr />
+					<div>
+						<h5>Reported By</h5>
+						#{viewComplaintBean.complaint.user.firstName}
+						#{viewComplaintBean.complaint.user.lastName} on
+						#{viewComplaintBean.complaint.timestamp}
+					</div>
+					<hr />
+					<h5>Location</h5>
+					#{viewComplaintBean.complaint.location}
+				</div>
+			</div>
+			<div style="clear: both; margin-top: 50px; margin-bottom: 20px;">
+				<ui:repeat var="comment"
+					value="#{viewComplaintBean.complaint.comments}">
+					<div class="mdl-shadow--2dp" style="margin-bottom: 10px;">
+						<div class="mdl-card__supporting-text" style="width: 770px;">
+							<div class="comment-data">#{comment.data}</div>
+							<hr class="comment-rule" />
+							<div class="comment-info">#{comment.user.firstName}
+								#{comment.user.lastName} on #{comment.time}</div>
+						</div>
+					</div>
+				</ui:repeat>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

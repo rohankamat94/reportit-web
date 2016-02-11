@@ -58,6 +58,7 @@
 			<div class="button-container">
 				<p:commandButton value="View" oncomplete="getRipple('closeViewBtn')"
 					style="margin-left:60px"
+					action="#{complaintBean.viewComplaint()}"
 					disabled="#{complaintBean.selected eq null}" id="viewButton"
 					widgetVar="viewBtn"
 					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
