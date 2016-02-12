@@ -14,7 +14,15 @@
 	<ui:define name="main_content">
 		<div
 			style="margin-top: 50px; width: 800px; margin-left: auto; margin-right: auto;">
-			<p:chart type="bar" model="#{statsBean.bcm}" responsive="true" />
+			<p:panel>
+				<p:chart type="bar" model="#{statsBean.compVsCatModel}"
+					responsive="true" />
+				<div style="margin: 30px;"></div>
+				<p:chart type="bar" model="#{statsBean.compStatusModel}"
+					responsive="true" />
+			</p:panel>
+			hello
+
 		</div>
 	</ui:define>
 </ui:composition>

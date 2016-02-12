@@ -3,7 +3,6 @@ package com.cirs.jsf.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -21,72 +20,84 @@ import com.cirs.dao.remote.ComplaintDao;
 import com.cirs.entities.Admin;
 import com.cirs.entities.Category;
 import com.cirs.entities.Complaint;
+import com.cirs.entities.Complaint.Status;
 import com.cirs.jsf.util.JsfUtils;
 
 @ManagedBean(name = "statsBean")
 @ViewScoped
 public class StatsBean {
 	@EJB
-	private ComplaintDao compDao;
+	private ComplaintDao cDao;
 	@EJB
 	private CategoryDao catDao;
 
-	private BarChartModel compVsCatModel;
-	private Map<String, Long> compVsCatMap = new HashMap<>();
+	private List<Complaint> complaints;
+	private List<Category> categories;
+
+	private BarChartModel compVsCatModel = new BarChartModel();
+	private BarChartModel compStatusModel = new BarChartModel();
 
 	@PostConstruct
 	public void init() {
+		Long adminId = ((Admin) JsfUtils.getExternalContext().getSessionMap().get(CIRSConstants.LOGIN_ATTRIBUTE_KEY))
+				.getId();
 
-		initMaps();
-		initCompVsCatModel();
+		complaints = cDao.findAll(adminId);
+		categories = catDao.findAll(adminId);
+
+		Map<String, Long> compVsCatMap = getCompVsCatMap();
+		Map<String, Long> compStatus = getCompStatusMap();
+
+		createModel(compVsCatModel, compVsCatMap, "No. of complaints per category", "Category", "Complaints");
+		createModel(compStatusModel, compStatus, "No. of complaints per status", "Status", "Complaints");
 	}
 
-	private void initCompVsCatModel() {
-		compVsCatModel = new BarChartModel();
-		compVsCatModel.setTitle("No. of Complaints per Category");
-		compVsCatModel.setAnimate(true);
-		compVsCatModel.setSeriesColors("2196f3");
-		Axis x = compVsCatModel.getAxis(AxisType.X);
-		Axis y = compVsCatModel.getAxis(AxisType.Y);
+	private Map<String, Long> getCompStatusMap() {
+		Map<String, Long> map = new HashMap<>();
+		Status[] statuses = Status.values();
+		for (Status s : statuses) {
+			long count = complaints.stream().filter(c -> c.getStatus().equals(s)).count();
+			map.put(s.toString(), count);
 
-		x.setLabel("Complaints");
+		}
 
-		y.setLabel("Category");
-		y.setMin(0L);
-		y.setMax(compVsCatMap.values().stream().mapToLong(l -> l).max().getAsLong());
+		return map;
+	}
+
+	private Map<String, Long> getCompVsCatMap() {
+		Map<String, Long> map = new HashMap<>();
+		for (Category cat : categories) {
+			long count = complaints.stream().filter(c -> c.getCategory().equals(cat)).count();
+			map.put(cat.getName(), count);
+		}
+		return map;
+	}
+
+	@SuppressWarnings("unchecked")
+	private void createModel(BarChartModel model, Map<? extends Object, ? extends Number> map, String title,
+			String xLabel, String yLabel) {
+		model.setTitle(title);
+		model.setAnimate(true);
+		model.setSeriesColors("2196f3");
+		Axis x = model.getAxis(AxisType.X);
+		x.setLabel(xLabel);
+		Axis y = model.getAxis(AxisType.Y);
+		y.setLabel(yLabel);
 
 		ChartSeries cs = new ChartSeries();
-		for (Entry<String, Long> e : compVsCatMap.entrySet()) {
-			cs.set(e.getKey(), e.getValue());
-		}
-
-		compVsCatModel.addSeries(cs);
+		cs.set("x", 1);
+		cs.set("y", 2);
+		cs.set("c", 3);
+		cs.setData((Map<Object, Number>) map);
+		model.addSeries(cs);
 	}
 
-	private void initMaps() {
-		Admin admin = (Admin) JsfUtils.getExternalContext().getSessionMap().get(CIRSConstants.LOGIN_ATTRIBUTE_KEY);
-		List<Category> catList = catDao.findAll(admin.getId());
-		List<Complaint> compList = compDao.findAll(admin.getId());
-		for (Category cat : catList) {
-			long count = compList.stream().filter(c -> c.getCategory().equals(cat)).count();
-			compVsCatMap.put(cat.getName(), count);
-		}
-
-	}
-
-	public BarChartModel getBcm() {
+	public BarChartModel getCompVsCatModel() {
 		return compVsCatModel;
 	}
 
-	public void setBcm(BarChartModel bcm) {
-		this.compVsCatModel = bcm;
+	public BarChartModel getCompStatusModel() {
+		return compStatusModel;
 	}
 
-	public Map<String, Long> getCompVsCatMap() {
-		return compVsCatMap;
-	}
-
-	public void setCompVsCatMap(Map<String, Long> compVsCatMap) {
-		this.compVsCatMap = compVsCatMap;
-	}
 }
