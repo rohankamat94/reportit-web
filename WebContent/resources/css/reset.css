@@ -325,6 +325,10 @@ th.ui-state-default {
 	margin: 5px 0;
 }
 
+#loadDialog{
+	background:transparent;
+	border:none;
+}
 /* .ui-paginator.ui-paginator-bottom.ui-widget-header.ui-corner-bottom {
 	background: none;
 	padding: 10px;

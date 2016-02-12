@@ -68,6 +68,8 @@
 					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
 
 				<p:fileUpload dragDropSupport="false" auto="true" skinSimple="true"
+					onstart="showLoader();"
+					oncomplete="hideLoader();"
 					style="visibility:hidden !important" update="uploadDialog userForm"
 					fileUploadListener="#{userBean.onUpload}" widgetVar="uploadUser" />
 			</div>

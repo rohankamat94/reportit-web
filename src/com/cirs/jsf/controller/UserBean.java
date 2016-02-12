@@ -50,14 +50,12 @@ public class UserBean extends BaseEntityController<User> implements Serializable
 	public void onUpload(FileUploadEvent event) {
 		System.out.println("in listener");
 		try {
-			JsfUtils.beginLoader();
 			UploadedFile file = event.getFile();
 			try {
 				File f = new File(file.getFileName());
 				System.out.println(f.getName() + " " + f.getName().endsWith("xlsx"));
 				if (!f.getName().endsWith("xlsx") && !f.getName().endsWith("xls")) {
 					JsfUtils.showSnackBar("Incorrect file type");
-					JsfUtils.endLoader();
 					return;
 				}
 				FileOutputStream fos = new FileOutputStream(f);
@@ -69,11 +67,8 @@ public class UserBean extends BaseEntityController<User> implements Serializable
 				response = dao.upload(getAdmin(), f);
 				System.out.println(response.getEntitiesCreated() + " " + response.getErrors());
 				int newUser = response.getEntitiesCreated();
-				if (newUser > 0) {
-					System.out.println("showSnackBar('" + newUser + " users created');");
-					JsfUtils.showSnackBar(newUser + " users created");
-					JsfUtils.endLoader();
-				}
+				System.out.println("showSnackBar('" + newUser + " users created');");
+				JsfUtils.showSnackBar(newUser + " users created");
 				fos.flush();
 				fos.close();
 			} catch (Exception e) {
@@ -82,7 +77,6 @@ public class UserBean extends BaseEntityController<User> implements Serializable
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		JsfUtils.endLoader();
 	}
 
 	public void clear() {
@@ -94,10 +88,9 @@ public class UserBean extends BaseEntityController<User> implements Serializable
 		return sampleFile;
 	}
 
-/*	public String getMessage() {
-		return dao.findAll().toString();
-	}
-*/
+	/*
+	 * public String getMessage() { return dao.findAll().toString(); }
+	 */
 	public LazyLoader<User> getUsers() {
 		if (users == null) {
 			System.out.println("here");

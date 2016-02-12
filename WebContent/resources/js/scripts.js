@@ -12,33 +12,30 @@ function createCardFromDialog() {
  * mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'); }
  */
 function showLoader() {
-	PF('loadDlg').show();
+	document.getElementById('loadDialog').showModal();
 }
 
 function hideLoader() {
-	PF('loadDlg').hide();
+	document.getElementById('loadDialog').close();
 }
 
 function upload() {
 	console.log("in upload");
 	$(PF('uploadUser').jqId).find('*').click();
-	console.log('exiting')
+	console.log('exiting');
 }
 
-function showSnackBar(message) {
-	console.log('in show' + message);
-	$('.mdl-snackbar-text').text(message);
-	$('#snackbar').css('visibility', 'visible');
-	setTimeout(function() {
-		$('#snackbar').css('visibility', 'hidden');
-	}, 5000);
+function showSnackBar(mes) {
+	var snackbarContainer = document.querySelector('#toast');
+	var data={message:mes,timeout:2000}
+	snackbarContainer.MaterialSnackbar.showSnackbar(data);
 }
 function showAddCategory() {
-	upgradeComponents('.mdl-switch','.mdl-textfield');
+	upgradeComponents('.mdl-switch', '.mdl-textfield');
 	PF('addDlg').show();
 }
 function showEditCategory() {
-	upgradeComponents('.mdl-switch','.mdl-textfield');
+	upgradeComponents('.mdl-switch', '.mdl-textfield');
 	PF('editDlg').show();
 }
 
