@@ -329,6 +329,10 @@ th.ui-state-default {
 	background:transparent;
 	border:none;
 }
+
+.mdl-button.mdl-button--colored {
+    color: rgb(33,150,243) !important;
+}
 /* .ui-paginator.ui-paginator-bottom.ui-widget-header.ui-corner-bottom {
 	background: none;
 	padding: 10px;

@@ -41,19 +41,39 @@
 					#{viewComplaintBean.complaint.location}
 				</div>
 			</div>
-			<div style="clear: both; margin-top: 50px; margin-bottom: 20px;">
-				<ui:repeat var="comment"
-					value="#{viewComplaintBean.complaint.comments}">
-					<div class="mdl-shadow--2dp" style="margin-bottom: 10px;">
-						<div class="mdl-card__supporting-text" style="width: 770px;">
-							<div class="comment-data">#{comment.data}</div>
-							<hr class="comment-rule" />
-							<div class="comment-info">#{comment.user.firstName}
-								#{comment.user.lastName} on #{comment.time}</div>
+			<h:form prependId="false">
+				<div style="clear: both; margin-top: 50px; margin-bottom: 20px;"
+					jsf:id="commentDiv">
+					<ui:repeat var="comment"
+						value="#{viewComplaintBean.complaint.comments}">
+						<div class="mdl-shadow--2dp" style="margin-bottom: 10px;">
+							<div class="mdl-card__supporting-text" style="width: 770px;">
+								<div class="comment-data">#{comment.data}</div>
+								<hr class="comment-rule" />
+								<div class="comment-info">
+									#{comment.user eq null?'Admin':comment.user.firstName} on
+									<h:outputText value="#{comment.time}">
+										<f:convertDateTime pattern="dd-MMM-YYYY hh:mm:ss a" />
+									</h:outputText>
+								</div>
+							</div>
+						</div>
+					</ui:repeat>
+					<div class="mdl-card mdl-shadow--2dp" style="width: inherit;">
+						<textarea style="margin: 5px; height: 135px; resize: none;"
+							jsf:id="commentInput" jsf:value="#{viewComplaintBean.comment}"
+							placeholder="Enter Comment" />
+						<div class="mdl-card__actions mdl-card--border">
+							<button type="submit" jsf:ajax="true"
+								jsf:action="#{viewComplaintBean.addComment()}"
+								class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+								<f:ajax execute="commentInput" render="commentDiv" />
+								Enter Comment
+							</button>
 						</div>
 					</div>
-				</ui:repeat>
-			</div>
+				</div>
+			</h:form>
 		</div>
 	</ui:define>
 </ui:composition>
