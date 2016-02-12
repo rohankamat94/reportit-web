@@ -10,12 +10,14 @@
 				id="complaintTable" selection="#{complaintBean.selected}"
 				selectionMode="single"
 				tableStyleClass="mdl-data-table mdl-js-data-table"
-				tableStyle="width:100%"
-				styleClass="mdl-shadow--2dp" widgetVar="compTable">
+				tableStyle="width:100%" styleClass="mdl-shadow--2dp"
+				widgetVar="compTable">
 
-				<p:ajax event="rowSelect" oncomplete="getRipple('viewBtn','editBtn');"
+				<p:ajax event="rowSelect"
+					oncomplete="getRipple('viewBtn','editBtn');"
 					update=" :complaintForm:viewButton :complaintForm:editButton" />
-				<p:ajax event="rowUnselect" oncomplete="getRipple('viewBtn','editBtn');"
+				<p:ajax event="rowUnselect"
+					oncomplete="getRipple('viewBtn','editBtn');"
 					update=" :complaintForm:viewButton :complaintForm:editButton" />
 				<p:ajax event="page" listener="#{complaintBean.onPageChange}"
 					update=":complaintForm:viewButton  :complaintForm:editButton" />
@@ -36,7 +38,7 @@
 					<h:outputText value="#{complaint.description}" />
 				</p:column>
 				<p:column headerText="Category" sortBy="#{complaint.category.name}"
-					filterBy="complaint.category.name">
+					filterBy="#{complaint.category.name}">
 					<h:outputText value="#{complaint.category.name}" />
 				</p:column>
 				<p:column headerText="Username"
@@ -45,11 +47,11 @@
 					<h:outputText value="#{complaint.user.userName}" />
 				</p:column>
 				<p:column headerText="Status">
-					<h:outputText value="#{complaint.status}"/>
+					<h:outputText value="#{complaint.status}" />
 				</p:column>
 				<p:column headerText="Timestamp" sortBy="#{complaint.timestamp}">
 					<h:outputText value="#{complaint.timestamp}">
-						<f:convertDateTime pattern="dd MMM yyyy HH:mm:ss" />
+						<f:convertDateTime pattern="dd MMM yyyy HH:mm:ss a" />
 					</h:outputText>
 				</p:column>
 
@@ -57,13 +59,13 @@
 			</p:dataTable>
 			<div class="button-container">
 				<p:commandButton value="View" oncomplete="getRipple('closeViewBtn')"
-					style="margin-left:60px"
-					action="#{complaintBean.viewComplaint()}"
+					style="margin-left:60px" action="#{complaintBean.viewComplaint()}"
 					disabled="#{complaintBean.selected eq null}" id="viewButton"
 					widgetVar="viewBtn"
 					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
 
-				<p:commandButton value="Change Status" oncomplete="showEditCategory();getRipple('closeEditBtn','saveBtn')"
+				<p:commandButton value="Change Status"
+					oncomplete="showEditCategory();getRipple('closeEditBtn','saveBtn')"
 					style="margin-left:60px" update=":editDialog" widgetVar="editBtn"
 					disabled="#{complaintBean.selected eq null}" id="editButton"
 					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />

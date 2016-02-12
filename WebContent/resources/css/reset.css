@@ -333,6 +333,10 @@ th.ui-state-default {
 .mdl-button.mdl-button--colored {
     color: rgb(33,150,243) !important;
 }
+
+.errorpage{
+	background-color: #BBDEFB;
+}
 /* .ui-paginator.ui-paginator-bottom.ui-widget-header.ui-corner-bottom {
 	background: none;
 	padding: 10px;
