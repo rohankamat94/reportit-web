@@ -9,7 +9,7 @@ import com.cirs.jsf.util.JsfUtils;
 @SessionScoped
 @ManagedBean(name = "navBean")
 public class NavBean {
-	
+
 	public String getNavUrl(String string) {
 		StringBuilder base = new StringBuilder(JsfUtils.getExternalContext().getRequestContextPath() + "/faces/pages/");
 		switch (string) {
@@ -21,6 +21,9 @@ public class NavBean {
 			break;
 		case "categories":
 			base.append("categories");
+			break;
+		case "stats":
+			base.append("stats");
 			break;
 		default:
 			throw new IllegalArgumentException(string + " is not a valid argument");
