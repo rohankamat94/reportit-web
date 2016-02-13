@@ -23,17 +23,27 @@ import javax.ws.rs.core.Response;
 
 import com.cirs.core.CIRSConstants;
 import com.cirs.core.CIRSConstants.ImageDir;
+import com.cirs.dao.remote.CategoryDao;
 import com.cirs.dao.remote.ComplaintDao;
+import com.cirs.dao.remote.UserDao;
 import com.cirs.entities.Complaint;
 import com.cirs.entities.Complaint.ComplaintTO;
 import com.cirs.entities.Complaint.Status;
+import com.cirs.entities.User;
 import com.cirs.exceptions.EntityNotCreatedException;
+import com.cirs.webservice.util.JsonUtils;
 
 @Path("/complaint")
 public class ComplaintWebService {
 
 	@EJB(beanName = "complaintDao")
 	private ComplaintDao dao;
+
+	// @EJB
+	// private UserDao userDao;
+
+	// @EJB
+	// private CategoryDao catDao;
 
 	@Context
 	HttpServletRequest req;
@@ -76,12 +86,14 @@ public class ComplaintWebService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ComplaintTO> getComplaints(@QueryParam("adminId") Long adminId) {
-		System.out.println("dao null " + (dao == null));
-		return dao.getComplaintwithComments(adminId);
+	public Response getComplaints(@QueryParam("adminId") Long adminId) {
+		if (adminId == null) {
+			return Response.status(400).entity(JsonUtils.getResponseEntity(400, "adminId cannot be null")).build();
+		}
+		List<ComplaintTO> result = dao.getComplaintwithComments(adminId);
+		return Response.status(200).entity(result).build();
 	}
 
-	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -89,8 +101,8 @@ public class ComplaintWebService {
 		try {
 			System.out.println(complaint);
 			complaint.setStatus(Status.PENDING);
-			dao.create(complaint);
-
+			Long newID=(Long) dao.create(complaint);
+			complaint.setId(newID);
 			System.out.println("after create complaint id =" + complaint);
 			return Response.status(201).type(MediaType.APPLICATION_JSON).entity(complaint).build();
 		} catch (EntityNotCreatedException e) {

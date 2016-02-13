@@ -29,6 +29,7 @@ import com.cirs.dao.remote.UserDao;
 import com.cirs.entities.User;
 import com.cirs.entities.User.UserTO;
 import com.cirs.exceptions.EntityNotFoundException;
+import com.cirs.webservice.util.JsonUtils;
 
 @Path("/user")
 public class UserWebService {
@@ -41,8 +42,12 @@ public class UserWebService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<UserTO> getAllUsers(@QueryParam("adminId") Long adminId) {
-		return dao.findAllUsersWithComplaints(adminId);
+	public Response getAllUsers(@QueryParam("adminId") Long adminId) {
+		if (adminId == null) {
+			return Response.status(Status.BAD_REQUEST).entity("{\"message\":\"Cannot have null admin id\"}").build();
+		}
+		List<UserTO> list = dao.findAllUsersWithComplaints(adminId);
+		return Response.status(200).entity(list).build();
 	}
 
 	/*
@@ -67,17 +72,15 @@ public class UserWebService {
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response save(@PathParam("id") Long id, User user) {
-		System.out.println(user == null);
-		System.out.println(id);
-		System.out.println(user.getId());
-		System.out.println(user.getId() + " " + id);
-		if (!user.getId().equals(id)) {
-			return Response.status(400).type(MediaType.APPLICATION_JSON)
-					.entity(getResponseEntity(400, "Resource id does not match user id")).build();
-
+	public Response save(@PathParam("id") Long id, @QueryParam("adminId") Long adminId, User user) {
+		if (adminId == null) {
+			return Response.status(Status.BAD_REQUEST).entity("{\"message\":\"Cannot have null admin id\"}").build();
 		}
 		try {
+			user.setId(id);
+			if(!dao.findById(id).getAdmin().getId().equals(adminId)){
+				throw new EntityNotFoundException("");
+			}
 			System.out.println("in save " + dao.edit(user));
 			return Response.status(200).type(MediaType.APPLICATION_JSON)
 					.entity(getResponseEntity(200, "Entity modified")).build();
@@ -99,7 +102,7 @@ public class UserWebService {
 		System.out.println(Arrays.toString(content));
 		if (dao.findById(id) == null) {
 			System.out.println("image for id " + id + " not found");
-			return Response.status(404).build();
+			return Response.status(404).entity(JsonUtils.getResponseEntity(404, "user with id "+id+" not found")).build();
 		} else {
 
 			String fileType = req.getContentType().split("/")[1];
@@ -129,8 +132,8 @@ public class UserWebService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response verifyCredentials(User user) {
 		System.out.println("here in verify");
-		User u = dao.verifyCredentials(user.getUserName(), user.getPassword());
+		UserTO u = dao.verifyCredentials(user.getUserName(), user.getPassword());
 		return u != null ? Response.status(200).type(MediaType.APPLICATION_JSON).entity(u).build()
-				: Response.status(404).build();
+				: Response.status(404).entity(JsonUtils.getResponseEntity(404, "username or password is invalid")).build();
 	}
 }

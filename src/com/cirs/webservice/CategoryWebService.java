@@ -10,6 +10,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.core.Response.Status;
 
 import com.cirs.dao.remote.CategoryDao;
 import com.cirs.entities.Category;
@@ -21,12 +24,17 @@ public class CategoryWebService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Category> findAll(@QueryParam("adminId") Long adminId,
+	public Response findAll(@QueryParam("adminId") Long adminId,
 			@QueryParam("activeOnly") @DefaultValue("true") boolean activeOnly) {
-		List<Category> result = dao.findAll(adminId);
-		if (activeOnly) {
-			return result.stream().filter(c -> c.getActive() == true).collect(Collectors.toList());
+		if (adminId == null) {
+			return Response.status(Status.BAD_REQUEST).entity("{\"message\":\"Cannot have null admin id\"}").build();
 		}
-		return result;
+		List<Category> result = dao.findAll(adminId);
+		ResponseBuilder response = Response.status(200);
+
+		if (activeOnly) {
+			result = result.stream().filter(c -> c.getActive() == true).collect(Collectors.toList());
+		}
+		return response.entity(result).build();
 	}
 }
