@@ -78,7 +78,7 @@ public class UserWebService {
 		}
 		try {
 			user.setId(id);
-			if(!dao.findById(id).getAdmin().getId().equals(adminId)){
+			if (!dao.findById(id).getAdmin().getId().equals(adminId)) {
 				throw new EntityNotFoundException("");
 			}
 			System.out.println("in save " + dao.edit(user));
@@ -102,7 +102,8 @@ public class UserWebService {
 		System.out.println(Arrays.toString(content));
 		if (dao.findById(id) == null) {
 			System.out.println("image for id " + id + " not found");
-			return Response.status(404).entity(JsonUtils.getResponseEntity(404, "user with id "+id+" not found")).build();
+			return Response.status(404).entity(JsonUtils.getResponseEntity(404, "user with id " + id + " not found"))
+					.build();
 		} else {
 
 			String fileType = req.getContentType().split("/")[1];
@@ -132,8 +133,14 @@ public class UserWebService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response verifyCredentials(User user) {
 		System.out.println("here in verify");
+		if (user == null) {
+			return Response.status(400).entity(
+					JsonUtils.getResponseEntity(400, "The request body is null, or cannot be serialized to User"))
+					.build();
+		}
 		UserTO u = dao.verifyCredentials(user.getUserName(), user.getPassword());
 		return u != null ? Response.status(200).type(MediaType.APPLICATION_JSON).entity(u).build()
-				: Response.status(404).entity(JsonUtils.getResponseEntity(404, "username or password is invalid")).build();
+				: Response.status(404).entity(JsonUtils.getResponseEntity(404, "username or password is invalid"))
+						.build();
 	}
 }
