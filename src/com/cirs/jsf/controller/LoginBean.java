@@ -25,6 +25,7 @@ public class LoginBean {
 	private String password;
 	private boolean remember;
 
+	private boolean validationFailed;
 	public String getUsername() {
 		return username;
 	}
@@ -45,6 +46,7 @@ public class LoginBean {
 		System.out.println("Logging in with" + username + " " + password);
 		Admin admin=dao.verifyAdmin(username, password);
 		if (admin!=null) {
+			validationFailed=false;
 			ExternalContext context = JsfUtils.getExternalContext();
 			if (context != null) {
 				context.getSessionMap().put(LOGIN_ATTRIBUTE_KEY, admin);
@@ -56,6 +58,8 @@ public class LoginBean {
 					+ "/faces/pages/complaints/index.xhtml";
 			System.out.println(complaintPath);
 			context.redirect(complaintPath);
+		}else{
+			validationFailed=true;
 		}
 	}
 
@@ -66,6 +70,7 @@ public class LoginBean {
 			context.getSessionMap().remove(LOGIN_ATTRIBUTE_KEY);
 			JsfUtils.removeCookie(JsfUtils.getHttpServletResponse(), LOGIN_ATTRIBUTE_KEY);
 		}
+		validationFailed=false;	
 		String redirectTo= JsfUtils.getExternalContext().getRequestContextPath() + "/faces/login.xhtml";
 		JsfUtils.getExternalContext().redirect(redirectTo);
 	}
@@ -76,5 +81,17 @@ public class LoginBean {
 
 	public void setRemember(boolean remember) {
 		this.remember = remember;
+	}
+
+	public boolean getValidationFailed() {
+		return validationFailed;
+	}
+
+	public void setValidationFailed(boolean validationFailed) {
+		this.validationFailed = validationFailed;
+	}
+	
+	public String getScript(){
+		return "showSnackBar('Invalid Credentials. Try again');";
 	}
 }

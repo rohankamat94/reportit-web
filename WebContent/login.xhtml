@@ -5,7 +5,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-	<title>Hello</title>
+	<title>Admin Login</title>
 	<h:outputStylesheet name="css/material.min.css" />
 	<h:outputStylesheet name="css/reset.css" />
 	<h:outputScript name="js/scripts.js" />
@@ -28,13 +28,15 @@
 			<div class="page-content" style="width: 200px; margin: 100px auto;">
 				<!-- Your content goes here -->
 
-				<div class="mdl-textfield mdl-js-textfield">
+				<div
+					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<input type="text" jsf:id="username" class="mdl-textfield__input"
 						jsf:value="#{loginBean.username}" id="username" /> <label
 						class="mdl-textfield__label" for="username">Username</label>
 
 				</div>
-				<div class="mdl-textfield mdl-js-textfield">
+				<div
+					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<input class="mdl-textfield__input" type="password" id="password"
 						jsf:value="#{loginBean.password}" /> <label
 						class="mdl-textfield__label" for="password">Password</label>
@@ -44,7 +46,8 @@
 
 					<button style="display: table-cell" jsf:action="#{loginBean.login}"
 						class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-						<i class="material-icons">input</i>
+						<i class="material-icons" style="color: white;">input</i>
+						<f:ajax execute="@form" render="scriptPanel"></f:ajax>
 					</button>
 					<div style="display: table-cell; width: 33.33%"></div>
 				</div>
@@ -55,6 +58,15 @@
 				</label>
 
 			</div>
+			<div id="toast" class="mdl-js-snackbar mdl-snackbar">
+				<div class="mdl-snackbar__text"></div>
+				<button class="mdl-snackbar__action" type="button" />
+			</div>
+			<h:panelGroup id="scriptPanel">
+				<h:outputScript rendered="#{loginBean.validationFailed}">
+				#{loginBean.script}
+			</h:outputScript>
+			</h:panelGroup>
 		</h:form> </main>
 	</div>
 
