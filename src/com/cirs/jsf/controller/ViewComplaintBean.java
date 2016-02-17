@@ -1,18 +1,20 @@
 package com.cirs.jsf.controller;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 
 import com.cirs.core.CIRSConstants;
 import com.cirs.dao.remote.ComplaintDao;
 import com.cirs.entities.Admin;
 import com.cirs.entities.Comment;
 import com.cirs.entities.Complaint;
-import com.cirs.entities.Complaint.ComplaintTO;
 import com.cirs.exceptions.EntityNotFoundException;
 import com.cirs.jsf.util.JsfUtils;
 
@@ -27,10 +29,14 @@ public class ViewComplaintBean {
 	private Long complaintId;
 	private String commentData;
 
-	public void init() {
+	public void init() throws IOException {
 		Long adminId = ((Admin) JsfUtils.getExternalContext().getSessionMap().get(CIRSConstants.LOGIN_ATTRIBUTE_KEY))
 				.getId();
 		complaint = dao.findByIdWithComments(complaintId, adminId);
+		System.out.println("called init");
+		if (complaint == null) {
+			JsfUtils.getExternalContext().responseSendError(404, "invalid complaint id" + complaintId);
+		}
 
 	}
 
@@ -75,4 +81,7 @@ public class ViewComplaintBean {
 		this.commentData = comment;
 	}
 
+	public String getRedirect() {
+		return "index.xhtml";
+	}
 }
