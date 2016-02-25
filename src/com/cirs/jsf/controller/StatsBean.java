@@ -3,6 +3,7 @@ package com.cirs.jsf.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -36,6 +37,7 @@ public class StatsBean {
 
 	private BarChartModel compVsCatModel = new BarChartModel();
 	private BarChartModel compStatusModel = new BarChartModel();
+	private BarChartModel compVsLocationModel = new BarChartModel();
 
 	@PostConstruct
 	public void init() {
@@ -47,9 +49,17 @@ public class StatsBean {
 
 		Map<String, Long> compVsCatMap = getCompVsCatMap();
 		Map<String, Long> compStatus = getCompStatusMap();
+		Map<String, Long> compVsLoc = getCompVsLocMap();
 
 		createModel(compVsCatModel, compVsCatMap, "No. of complaints per category", "Category", "Complaints");
 		createModel(compStatusModel, compStatus, "No. of complaints per status", "Status", "Complaints");
+		createModel(compVsLocationModel, compVsLoc, "No. of complaints per location", "Location", "Complaints");
+	}
+
+	private Map<String, Long> getCompVsLocMap() {
+		Map<String, Long> map = complaints.stream()
+				.collect(Collectors.groupingBy(Complaint::getLocation, Collectors.counting()));
+		return map;
 	}
 
 	private Map<String, Long> getCompStatusMap() {
@@ -98,6 +108,14 @@ public class StatsBean {
 
 	public BarChartModel getCompStatusModel() {
 		return compStatusModel;
+	}
+
+	public BarChartModel getCompVsLocationModel() {
+		return compVsLocationModel;
+	}
+
+	public void setCompVsLocationModel(BarChartModel compVsLocationModel) {
+		this.compVsLocationModel = compVsLocationModel;
 	}
 
 }
