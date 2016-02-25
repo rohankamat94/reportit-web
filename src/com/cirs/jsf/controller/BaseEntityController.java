@@ -13,9 +13,9 @@ public abstract class BaseEntityController<T> {
 	public void onPageChange(PageEvent event) {
 		setSelected(null);
 	}
-	
-	public Admin getAdmin(){
-		return (Admin)JsfUtils.getExternalContext().getSessionMap().get(CIRSConstants.LOGIN_ATTRIBUTE_KEY);
+
+	public Admin getAdmin() {
+		return (Admin) JsfUtils.getExternalContext().getSessionMap().get(CIRSConstants.LOGIN_ATTRIBUTE_KEY);
 	}
 
 }
