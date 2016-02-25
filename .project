@@ -3,7 +3,6 @@
 	<name>CIRSWeb</name>
 	<comment></comment>
 	<projects>
-		<project>CIRSEJB</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
