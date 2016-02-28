@@ -86,6 +86,21 @@ public class ComplaintWebService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Path("{id}")
+	public Response getComplaint(@PathParam("id") Long id, @QueryParam("adminId") Long adminId) {
+		if (adminId == null) {
+			return Response.status(400).entity(JsonUtils.getResponseEntity(400, "adminId cannot be null")).build();
+		}
+		Complaint comp = dao.findByIdWithComments(id, adminId);
+		if (comp == null) {
+			return Response.status(404).entity(JsonUtils.getResponseEntity(404, "could not find complaint")).build();
+		}
+		return Response.status(200).entity(comp.getComplaintTO()).build();
+
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response getComplaints(@QueryParam("adminId") Long adminId) {
 		if (adminId == null) {
 			return Response.status(400).entity(JsonUtils.getResponseEntity(400, "adminId cannot be null")).build();
@@ -101,7 +116,7 @@ public class ComplaintWebService {
 		try {
 			System.out.println(complaint);
 			complaint.setStatus(Status.PENDING);
-			Long newID=(Long) dao.create(complaint);
+			Long newID = (Long) dao.create(complaint);
 			complaint.setId(newID);
 			System.out.println("after create complaint id =" + complaint);
 			return Response.status(201).type(MediaType.APPLICATION_JSON).entity(complaint).build();

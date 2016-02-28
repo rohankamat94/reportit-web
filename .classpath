@@ -4,22 +4,11 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/excel/commons-codec-1.9.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/excel/commons-logging-1.1.3.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/excel/junit-4.12.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/excel/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/excel/poi-excelant.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/excel/poi-ooxml-schemas.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/excel/poi-ooxml.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/excel/poi-scratchpad.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/excel/poi.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/excel/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JSF 2.2 (Mojarra 2.2.0)">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 			<attribute name="owner.project.facets" value="jst.jsf"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="/CIRSEJB"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
