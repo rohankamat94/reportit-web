@@ -26,6 +26,7 @@ import javax.ws.rs.core.Response.Status;
 import com.cirs.core.CIRSConstants;
 import com.cirs.core.CIRSConstants.ImageDir;
 import com.cirs.dao.remote.UserDao;
+import com.cirs.entities.Complaint;
 import com.cirs.entities.User;
 import com.cirs.entities.User.UserTO;
 import com.cirs.exceptions.EntityNotFoundException;
@@ -89,6 +90,21 @@ public class UserWebService {
 			return Response.status(Status.NOT_FOUND)
 					.entity(getResponseEntity(404, "User with id " + id + " does not exist")).build();
 		}
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("{id}")
+	public Response getUser(@PathParam("id") Long id, @QueryParam("adminId") Long adminId) {
+		if (adminId == null) {
+			return Response.status(400).entity(JsonUtils.getResponseEntity(400, "adminId cannot be null")).build();
+		}
+		UserTO user = dao.findUserWIthComplaint(id, adminId);
+		if (user == null) {
+			return Response.status(404).entity(JsonUtils.getResponseEntity(404, "could not find user")).build();
+		}
+		return Response.status(200).entity(user).build();
+
 	}
 
 	@PUT
