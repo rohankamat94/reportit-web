@@ -7,16 +7,16 @@ import java.util.Date;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 
 import com.cirs.core.CIRSConstants;
 import com.cirs.dao.remote.ComplaintDao;
 import com.cirs.entities.Admin;
 import com.cirs.entities.Comment;
 import com.cirs.entities.Complaint;
+import com.cirs.entities.Complaint.Status;
 import com.cirs.exceptions.EntityNotFoundException;
 import com.cirs.jsf.util.JsfUtils;
+import com.cirs.util.ActionStatusMapper;
 
 @ViewScoped
 @ManagedBean(name = "viewComplaintBean")
@@ -28,6 +28,7 @@ public class ViewComplaintBean {
 	private Complaint complaint;
 	private Long complaintId;
 	private String commentData;
+	public String action;
 
 	public void init() throws IOException {
 		Long adminId = ((Admin) JsfUtils.getExternalContext().getSessionMap().get(CIRSConstants.LOGIN_ATTRIBUTE_KEY))
@@ -37,7 +38,21 @@ public class ViewComplaintBean {
 		if (complaint == null) {
 			JsfUtils.getExternalContext().responseSendError(404, "invalid complaint id" + complaintId);
 		}
+	}
 
+	public void changeStatus() {
+		if (action == null || action.isEmpty()) {
+			return;
+		}
+		Status newStatus = ActionStatusMapper.getNewStatus(action, complaint.getStatus());
+		System.out.println("status:" + complaint.getStatus() + " action:" + action + " new Action " + newStatus);
+		complaint.setStatus(newStatus);
+		action = null;
+		try {
+			dao.edit(complaint);
+		} catch (EntityNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void addComment() {
@@ -83,5 +98,13 @@ public class ViewComplaintBean {
 
 	public String getRedirect() {
 		return "index.xhtml";
+	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public void setAction(String action) {
+		this.action = action;
 	}
 }

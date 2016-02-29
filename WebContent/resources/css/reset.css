@@ -405,8 +405,16 @@ th.ui-state-default {
 	left: 0;
 }
 
-.mdl-navigation__link{
-	padding:25px 35px;
+.mdl-navigation__link {
+	padding: 25px 35px;
+}
+
+.status-card {
+	margin-top: 25px;
+}
+
+.status-card td input[type=radio]{
+	background-color: black;
 }
 /* .ui-paginator.ui-paginator-bottom.ui-widget-header.ui-corner-bottom {
 	background: none;

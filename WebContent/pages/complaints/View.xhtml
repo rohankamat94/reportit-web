@@ -1,13 +1,13 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:jsf="http://xmlns.jcp.org/jsf" template="/pages/template.xhtml">
+	xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:p="http://primefaces.org/ui"
+	template="/pages/template.xhtml">
 	<f:metadata>
 		<f:viewParam name="complaintId"
 			value="#{viewComplaintBean.complaintId}" />
-		<f:event listener="#{viewComplaintBean.init()}" type="preRenderView"></f:event>
+		<f:event listener="#{viewComplaintBean.init()}" type="preRenderView" />
 	</f:metadata>
 	<ui:define name="title">
 		Complaint
@@ -16,13 +16,14 @@
 		Complaint
 	</ui:define>
 	<ui:define name="main_content">
+		<p:panel />
 		<div style="width: 800px; margin-left: auto; margin-right: auto;"
 			jsf:rendered="#{viewComplaintBean.complaint ne null}">
 			<div>
 				<h3>#{viewComplaintBean.complaint.title}</h3>
 			</div>
-			<div style="margin-right: 50px; width: 300px; float: left">
-				<h:graphicImage style="width: 300px; height: 300px;"
+			<div style="margin-right: 55px; width: 410px; float: left">
+				<h:graphicImage style="width: 410px; height: 410px;"
 					value="http://localhost:8080/CIRSWeb/image/complaints/#{viewComplaintBean.complaint.id}" />
 			</div>
 			<div class="mdl-card mdl-shadow--2dp">
@@ -47,6 +48,36 @@
 					<span style="padding-left: 10px;">#{viewComplaintBean.complaint.upvotes}</span>
 				</div>
 			</div>
+			<h:form prependId="false">
+				<div class="mdl-shadow--2dp status-card" jsf:id="statusCard">
+					<div class="mdl-card__supporting-text" style="width: 770px;">
+						<h4>Status</h4>
+						<h6 style="display: inline;">Current Status</h6>
+						<h5 style="padding-left: 10px; display: inline;">
+							<h:outputText value="#{viewComplaintBean.complaint.status}"
+								converter="complaintStatusConverter">
+							</h:outputText>
+						</h5>
+						<div
+							jsf:rendered="#{!empty(viewComplaintBean.complaint.status.actionsLabel)}">
+							<hr class="comment-rule" />
+							<h:selectOneRadio id="statusActions" style="myClass"
+								value="#{viewComplaintBean.action}">
+								<f:selectItems
+									value="#{viewComplaintBean.complaint.status.actionsLabel}" />
+								<f:ajax render="changeStatusBtn" />
+							</h:selectOneRadio>
+							<button type="submit" jsf:ajax="true" jsf:id="changeStatusBtn"
+								jsf:disabled="#{viewComplaintBean.action eq null}"
+								jsf:action="#{viewComplaintBean.changeStatus()}"
+								class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+								<f:ajax execute="statusActions" render="statusCard" />
+								Change Status
+							</button>
+						</div>
+					</div>
+				</div>
+			</h:form>
 			<h:form prependId="false">
 				<div style="clear: both; margin-top: 50px; margin-bottom: 20px;"
 					jsf:id="commentDiv">
