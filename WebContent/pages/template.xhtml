@@ -38,23 +38,30 @@
 			</div>
 		</header>
 		<div class="mdl-layout__drawer">
-			<span class="mdl-layout-title">ReportIt!</span>
+			<div class="mdl-layout-title navdrawer-header">
+				ReportIt!
+				<div class="navdrawer-header--text">Welcome Admin</div>
+			</div>
 			<nav class="mdl-navigation">
 				<h:outputLink value="#{navBean.getNavUrl('complaints')}"
 					styleClass="mdl-navigation__link">
-					Complaints
+					<i class="material-icons">receipt </i>
+					<span class="nav-spacer" /> Complaints
 				</h:outputLink>
 				<h:outputLink value="#{navBean.getNavUrl('categories')}"
 					styleClass="mdl-navigation__link">
-					Categories
+					<i class="material-icons">local_offer </i>
+					<span class="nav-spacer" />Categories
 				</h:outputLink>
 				<h:outputLink value="#{navBean.getNavUrl('users')}"
 					styleClass="mdl-navigation__link">
-					User Credentials
+					<i class="material-icons">person </i>
+					<span class="nav-spacer" />User Credentials
 				</h:outputLink>
 				<h:outputLink value="#{navBean.getNavUrl('stats')}"
 					styleClass="mdl-navigation__link">
-					Statistics
+					<i class="material-icons">poll </i>
+					<span class="nav-spacer" />Statistics
 				</h:outputLink>
 
 			</nav>

@@ -88,7 +88,7 @@ public class StatsBean {
 			String xLabel, String yLabel) {
 		model.setTitle(title);
 		model.setAnimate(true);
-		model.setSeriesColors("2196f3");
+		model.setSeriesColors("FF6E40");
 		Axis x = model.getAxis(AxisType.X);
 		x.setLabel(xLabel);
 		Axis y = model.getAxis(AxisType.Y);

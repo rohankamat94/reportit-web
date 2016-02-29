@@ -377,6 +377,37 @@ th.ui-state-default {
 .errorpage {
 	background-color: #BBDEFB;
 }
+
+.navdrawer-header {
+	height: 200px;
+	background: linear-gradient(left, #2196f3, #ff6e40);
+	background: -webkit-linear-gradient(left, #2196f3, #ff6e40);
+	color: #fff;
+	padding-left: 10px;
+	font-size: xx-large;
+}
+
+.navdrawer-header--text {
+	font-size: 20px;
+	margin-top: 75px;
+}
+
+.nav-spacer {
+	padding-left: 10px;
+}
+
+.mdl-layout__drawer {
+	width: 320px;
+	left: -320px;
+}
+
+.mdl-layout__drawer.is-visible {
+	left: 0;
+}
+
+.mdl-navigation__link{
+	padding:25px 35px;
+}
 /* .ui-paginator.ui-paginator-bottom.ui-widget-header.ui-corner-bottom {
 	background: none;
 	padding: 10px;
