@@ -31,7 +31,7 @@ import com.cirs.util.Utils;
 @ViewScoped
 public class UserBean extends BaseEntityController<User> implements Serializable {
 
-	@EJB(beanName = "userDao")
+	@EJB
 	UserDao dao;
 
 	private StreamedContent sampleFile;

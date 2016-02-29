@@ -28,7 +28,7 @@ public class CategoryBean extends BaseEntityController<Category> implements Seri
 
 	private LazyDataModel<Category> categories;
 
-	@EJB(beanName = "categoryDao")
+	@EJB
 	private CategoryDao catDao;
 
 	private Category selected;

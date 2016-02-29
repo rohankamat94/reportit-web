@@ -10,7 +10,7 @@ import com.cirs.dao.remote.AdminDao;
 @ViewScoped
 public class TestBean {
 
-	@EJB(beanName = "adminDao")
+	@EJB
 	AdminDao dao;
 
 	public String getTest() {

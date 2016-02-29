@@ -25,7 +25,7 @@ public class ComplaintBean extends BaseEntityController<Complaint> {
 	private Complaint selected;
 	private Status newStatus;
 
-	@EJB(beanName = "complaintDao")
+	@EJB
 	ComplaintDao dao;
 
 	@SuppressWarnings("serial")

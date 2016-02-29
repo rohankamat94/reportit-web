@@ -18,7 +18,7 @@ import com.cirs.jsf.util.JsfUtils;
 @SessionScoped
 public class LoginBean {
 
-	@EJB(beanName = "adminDao")
+	@EJB
 	private AdminDao dao;
 
 	private String username;

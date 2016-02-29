@@ -22,7 +22,7 @@ import com.cirs.util.ActionStatusMapper;
 @ManagedBean(name = "viewComplaintBean")
 public class ViewComplaintBean {
 
-	@EJB(beanName = "complaintDao")
+	@EJB
 	private ComplaintDao dao;
 
 	private Complaint complaint;
