@@ -315,9 +315,9 @@ th.ui-state-default {
 	color: #fff !important;
 }
 
-.mdl-checkbox__label {
+/* .mdl-checkbox__label {
 	margin-left: 20px;
-}
+} */
 
 .buttonDisplayArea {
 	display: table-row;

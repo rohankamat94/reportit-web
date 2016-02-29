@@ -23,9 +23,11 @@
 		</header>
 		<main class="mdl-layout__content"> <h:form id="loginForm"
 			prependId="false">
-			<div class="page-content" style="width: 200px; margin: 100px auto;">
+			<div class="page-content"
+				style="width: 200px; margin: 100px auto; margin-top: 10px;">
 				<!-- Your content goes here -->
-
+				<h:graphicImage library="images" name="app-icon.png"
+					style="margin:40px 36px"></h:graphicImage>
 				<div
 					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<input type="text" jsf:id="username" class="mdl-textfield__input"
@@ -39,19 +41,16 @@
 						jsf:value="#{loginBean.password}" /> <label
 						class="mdl-textfield__label" for="password">Password</label>
 				</div>
-				<div style="display: table-row">
-					<div style="display: table-cell; width: 33.33%"></div>
 
-					<button style="display: table-cell" jsf:action="#{loginBean.login}"
-						class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-						<i class="material-icons" style="color: white;">input</i>
-						<f:ajax execute="@form" render="scriptPanel"></f:ajax>
-					</button>
-					<div style="display: table-cell; width: 33.33%"></div>
-				</div>
+				<button style="margin-left: 72px" jsf:action="#{loginBean.login}"
+					class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+					<i class="material-icons" style="color: white;">input</i>
+					<f:ajax execute="@form" render="scriptPanel"></f:ajax>
+				</button>
 				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect"
-					for="remember"> <input type="checkbox" id="remember"
-					class="mdl-checkbox__input" jsf:value="#{loginBean.remember}" /><span
+					style="margin-top: 10px; margin-left: 30px;" for="remember">
+					<input type="checkbox" id="remember" class="mdl-checkbox__input"
+					jsf:value="#{loginBean.remember}" /><span
 					class="mdl-checkbox__label">Remember me</span>
 				</label>
 
