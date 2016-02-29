@@ -13,7 +13,9 @@ public class JsonUtils {
 		return entityToJson(new ResponseEntity(statusCode, message));
 	}
 	private static class ResponseEntity{
+		@SuppressWarnings("unused")
 		int statusCode;
+		@SuppressWarnings("unused")
 		String message;
 		public ResponseEntity(int statusCode, String message) {
 			this.statusCode = statusCode;

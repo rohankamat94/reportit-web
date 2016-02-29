@@ -18,22 +18,11 @@ import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
 
-import org.primefaces.json.JSONObject;
-
 import com.cirs.entities.Admin;
-import com.cirs.entities.Category;
-import com.cirs.entities.Comment;
-import com.cirs.entities.Complaint;
-import com.cirs.entities.User;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
 
 @Provider
 @Produces(MediaType.APPLICATION_JSON)

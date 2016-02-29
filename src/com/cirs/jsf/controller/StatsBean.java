@@ -95,9 +95,6 @@ public class StatsBean {
 		y.setLabel(yLabel);
 
 		ChartSeries cs = new ChartSeries();
-		cs.set("x", 1);
-		cs.set("y", 2);
-		cs.set("c", 3);
 		cs.setData((Map<Object, Number>) map);
 		model.addSeries(cs);
 	}

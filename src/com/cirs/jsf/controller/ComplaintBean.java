@@ -28,6 +28,7 @@ public class ComplaintBean extends BaseEntityController<Complaint> {
 	@EJB(beanName = "complaintDao")
 	ComplaintDao dao;
 
+	@SuppressWarnings("serial")
 	public LazyDataModel<Complaint> getComplaints() {
 		if (complaints == null) {
 			complaints = new LazyLoader<Complaint>(dao) {

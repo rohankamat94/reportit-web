@@ -26,7 +26,6 @@ import javax.ws.rs.core.Response.Status;
 import com.cirs.core.CIRSConstants;
 import com.cirs.core.CIRSConstants.ImageDir;
 import com.cirs.dao.remote.UserDao;
-import com.cirs.entities.Complaint;
 import com.cirs.entities.User;
 import com.cirs.entities.User.UserTO;
 import com.cirs.exceptions.EntityNotFoundException;

@@ -23,13 +23,10 @@ import javax.ws.rs.core.Response;
 
 import com.cirs.core.CIRSConstants;
 import com.cirs.core.CIRSConstants.ImageDir;
-import com.cirs.dao.remote.CategoryDao;
 import com.cirs.dao.remote.ComplaintDao;
-import com.cirs.dao.remote.UserDao;
 import com.cirs.entities.Complaint;
 import com.cirs.entities.Complaint.ComplaintTO;
 import com.cirs.entities.Complaint.Status;
-import com.cirs.entities.User;
 import com.cirs.exceptions.EntityNotCreatedException;
 import com.cirs.webservice.util.JsonUtils;
 

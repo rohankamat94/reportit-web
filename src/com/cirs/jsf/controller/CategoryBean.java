@@ -24,6 +24,8 @@ import static com.cirs.util.Utils.*;
 @ManagedBean
 @ViewScoped
 public class CategoryBean extends BaseEntityController<Category> implements Serializable {
+	private static final long serialVersionUID = 1206701444151331068L;
+
 	private LazyDataModel<Category> categories;
 
 	@EJB(beanName = "categoryDao")
@@ -32,6 +34,7 @@ public class CategoryBean extends BaseEntityController<Category> implements Seri
 	private Category selected;
 	private Category create;
 
+	@SuppressWarnings("serial")
 	public LazyDataModel<Category> getCategories() {
 		if (categories == null) {
 			categories = new LazyLoader<Category>(catDao) {
