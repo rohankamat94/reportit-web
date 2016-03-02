@@ -34,6 +34,25 @@ import com.cirs.webservice.util.JsonUtils;
 @Path("/user")
 public class UserWebService {
 
+	private static class TokenEntity {
+		private String token;
+		private Long id;
+
+		public String getToken() {
+			return token;
+		}
+
+		public Long getId() {
+			return id;
+		}
+
+		@Override
+		public String toString() {
+			return "TokenEntity [token=" + token + ", id=" + id + "]";
+		}
+
+	}
+
 	@EJB(beanName = "userDao")
 	private UserDao dao;
 
@@ -157,5 +176,25 @@ public class UserWebService {
 		return u != null ? Response.status(200).type(MediaType.APPLICATION_JSON).entity(u).build()
 				: Response.status(404).entity(JsonUtils.getResponseEntity(404, "username or password is invalid"))
 						.build();
+	}
+
+	@PUT
+	@Path("/token")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response editToken(TokenEntity token) {
+		try {
+			System.out.println(token);
+			User user = dao.findById(token.getId());
+			if (user == null) {
+				throw new EntityNotFoundException("");
+			}
+			user.setGcmToken(token.getToken());
+			dao.edit(user);
+			return Response.status(200).build();
+		} catch (EntityNotFoundException e) {
+			e.printStackTrace();
+			return Response.status(404).build();
+		}
 	}
 }
