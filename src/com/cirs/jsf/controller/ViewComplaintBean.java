@@ -16,6 +16,7 @@ import com.cirs.entities.Complaint;
 import com.cirs.entities.Complaint.Status;
 import com.cirs.exceptions.EntityNotFoundException;
 import com.cirs.jsf.util.JsfUtils;
+import com.cirs.notification.GcmRequestSender;
 import com.cirs.util.ActionStatusMapper;
 
 @ViewScoped
@@ -45,11 +46,13 @@ public class ViewComplaintBean {
 			return;
 		}
 		Status newStatus = ActionStatusMapper.getNewStatus(action, complaint.getStatus());
+		Status oldStatus=complaint.getStatus();			//required for notification
 		System.out.println("status:" + complaint.getStatus() + " action:" + action + " new Action " + newStatus);
 		complaint.setStatus(newStatus);
 		action = null;
 		try {
 			dao.edit(complaint);
+			GcmRequestSender.makeRequest(complaint, oldStatus, newStatus);
 		} catch (EntityNotFoundException e) {
 			e.printStackTrace();
 		}
