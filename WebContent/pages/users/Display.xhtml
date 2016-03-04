@@ -31,14 +31,16 @@
 					sortBy="#{user.lastName}">
 					<h:outputText value="#{user.lastName}" />
 				</p:column>
-				<p:column headerText="Gender">
+				<p:column headerText="Gender" sortBy="#{user.gender}">
 					<h:outputText value="#{user.gender}" />
 				</p:column>
-				<p:column headerText="DOB" filterBy="#{user.dob}"
-					sortBy="#{user.dob}">
-					<h:outputText value="#{user.dob}" />
+				<p:column headerText="DOB" sortBy="#{user.dob}">
+					<h:outputText value="#{user.dob}">
+						<f:convertDateTime pattern="dd MMM yyyy"></f:convertDateTime>
+					</h:outputText>
 				</p:column>
-				<p:column headerText="Email" filterBy="#{user.email}">
+				<p:column headerText="Email" filterBy="#{user.email}"
+					sortBy="#{user.email}">
 					<h:outputText value="#{user.email}" />
 				</p:column>
 				<p:column headerText="Phone Number" filterBy="#{user.phone}">
@@ -68,8 +70,7 @@
 					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
 
 				<p:fileUpload dragDropSupport="false" auto="true" skinSimple="true"
-					onstart="showLoader();"
-					oncomplete="hideLoader();"
+					onstart="showLoader();" oncomplete="hideLoader();"
 					style="visibility:hidden !important" update="uploadDialog userForm"
 					fileUploadListener="#{userBean.onUpload}" widgetVar="uploadUser" />
 			</div>

@@ -19,6 +19,8 @@ import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
 
 import com.cirs.entities.Admin;
+import com.cirs.entities.User;
+import com.cirs.entities.User.UserTO;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
@@ -76,7 +78,8 @@ public final class GsonMessageBodyHandler implements MessageBodyWriter<Object>, 
 			} else {
 				jsonType = genericType;
 			}
-			return getGson().fromJson(streamReader, jsonType);
+			Gson gson = type.equals(User.class) || type.equals(UserTO.class) ? getUserGson() : getGson();
+			return gson.fromJson(streamReader, jsonType);
 		} finally {
 			try {
 				streamReader.close();
@@ -84,6 +87,11 @@ public final class GsonMessageBodyHandler implements MessageBodyWriter<Object>, 
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private Gson getUserGson() {
+		return new GsonBuilder().setDateFormat("dd/MM/yyyy")
+				.addSerializationExclusionStrategy(new AdminExclusionStrategy()).create();
 	}
 
 	@Override
@@ -108,7 +116,8 @@ public final class GsonMessageBodyHandler implements MessageBodyWriter<Object>, 
 			} else {
 				jsonType = genericType;
 			}
-			getGson().toJson(object, jsonType, writer);
+			Gson gson = type.equals(User.class) || type.equals(UserTO.class) ? getUserGson() : getGson();
+			gson.toJson(object, jsonType, writer);
 		} finally {
 			writer.close();
 		}
