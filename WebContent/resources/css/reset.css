@@ -40,22 +40,21 @@
 	font-feature-settings: 'liga';
 }
 /*
- * FILE UPLOAD
- */
-/* .ui-panel {
-	margin: 0 !important;
-	padding: 0 !important;
-	border: 0 !important;
-	font-size: 100% !important;
-	font: inherit !important;
-	vertical-align: baseline !important;
-	font-family: "Roboto" "Arial" "sans-serif";
-}
-*/
+	 *HTML components
+	 *
+	 */
 body {
 	background-color: #efefef;
 }
 
+table {
+	width: 100.0% !important;
+}
+
+/* 
+	 *
+	 *Change primefaces attributes  
+	 */
 .ui-fileupload-content {
 	visibility: hidden !important;
 }
@@ -88,30 +87,52 @@ body {
 	box-shadow: inset 0.0 0.0 5.0px #2196F3;
 }
 
-.ui-paginator-next {
+.ui-paginator-next, .ui-paginator-last, .ui-paginator-first,
+	.ui-paginator-prev, .ui-sortable-column-icon {
 	background-position: center;
 	background-repeat: no-repeat;
+}
+
+.ui-sortable-column-icon {
+	opacity: 0.4;
+	width: 18px;
+	height: 18px;
+	background-image:
+		url('http://localhost:8080/CIRSWeb/faces/javax.faces.resources/icons/ic_sort.png');
+}
+
+.ui-sortable-column-icon.ui-icon.ui-icon-carat-2-n-s.ui-icon-triangle-1-n
+	{
+	width: 18px;
+	height: 18px;
+	background-image:
+		url('http://localhost:8080/CIRSWeb/faces/javax.faces.resources/icons/ic_sort_up.png');
+}
+
+.ui-sortable-column-icon.ui-icon.ui-icon-carat-2-n-s.ui-icon-triangle-1-s
+	{
+	
+	width: 18px;
+	height: 18px;
+	background-image: url('http://localhost:8080/CIRSWeb/faces/javax.faces.resources/icons/ic_sort_down.png');
+}
+
+.ui-paginator-next {
 	background-image:
 		url('http://localhost:8080/CIRSWeb/faces/javax.faces.resources/icons/ic_next.png');
 }
 
 .ui-paginator-last {
-	background-position: center;
-	background-repeat: no-repeat;
 	background-image:
 		url('http://localhost:8080/CIRSWeb/faces/javax.faces.resources/icons/ic_last.png');
 }
 
 .ui-paginator-first {
-	background-position: center;
-	background-repeat: no-repeat;
 	background-image:
 		url('http://localhost:8080/CIRSWeb/faces/javax.faces.resources/icons/ic_first.png');
 }
 
 .ui-paginator-prev {
-	background-position: center;
-	background-repeat: no-repeat;
 	background-image:
 		url('http://localhost:8080/CIRSWeb/faces/javax.faces.resources/icons/ic_prev.png');
 }
@@ -142,10 +163,6 @@ body {
 	visibility: hidden !important;
 }
  */
-table {
-	width: 100.0% !important;
-}
-
 .ui-datatable-odd, .ui-datatable-even {
 	background: inherit !important;
 }
@@ -156,11 +173,6 @@ table {
 	font-weight: normal !important;
 	background-color: rgb(255, 110, 64);
 } */
-.button-container {
-	margin-top: 20.0px;
-	margin-left: 33.33%;
-}
-
 th.ui-state-default {
 	background: inherit !important;
 	border: inherit !important;
@@ -173,26 +185,6 @@ th.ui-state-default {
 
 .userTable {
 	margin-top: 20.0px;
-}
-
-.mdl-snackbar {
-	margin-left: 20.0px;
-	margin-bottom: 20.0px;
-	max-width: 568.0px;
-	min-width: 288.0px;
-	background-color: #323232;
-	color: white;
-	bottom: 24.0px;
-	left: 14.0px;
-	z-index: 1200.0;
-	min-height: 20.0px;
-	background-color: #323232;
-	max-width: 568.0px;
-}
-
-.mdl-snackbar-text {
-	font-size: 14.0px;
-	padding: 16.0px 24.0px 14.0px;
 }
 
 .load-dialog, .ui-dialog-content {
@@ -268,23 +260,23 @@ th.ui-state-default {
 	box-sizing: border-box;
 }
 
+.ui-panelgrid, .ui-panelgrid-cell {
+	border: none !important;
+	border-style: none;
+}
+/**
+	 * Custom components
+	 */
+.button-container {
+	margin-top: 20.0px;
+	margin-left: 33.33%;
+}
+
 .profile-pic {
 	width: 100px;
 	height: 100px;
 }
 
-.ui-panelgrid, .ui-panelgrid-cell {
-	border: none !important;
-	border-style: none;
-}
-
-.mdl-button {
-	color: #fff !important;
-}
-
-/* .mdl-checkbox__label {
-	margin-left: 20px;
-} */
 .buttonDisplayArea {
 	display: table-row;
 }
@@ -341,10 +333,6 @@ th.ui-state-default {
 	border: none;
 }
 
-.mdl-button.mdl-button--colored {
-	color: rgb(33, 150, 243) !important;
-}
-
 .errorpage {
 	background-color: #BBDEFB;
 }
@@ -367,6 +355,40 @@ th.ui-state-default {
 	padding-left: 10px;
 }
 
+.status-card {
+	margin-top: 25px;
+	background-color: #fff;
+	border-radius: 2px;
+}
+
+.status-card td input[type=radio] {
+	background-color: black;
+}
+
+/*
+ *	Material Design Components
+ */
+.mdl-snackbar {
+	/* Positions snackbar to bottom left */
+	margin-left: 20.0px;
+	margin-bottom: 20.0px;
+	max-width: 568.0px;
+	min-width: 288.0px;
+	background-color: #323232;
+	color: white;
+	bottom: 24.0px;
+	left: 14.0px;
+	z-index: 1200.0;
+	min-height: 20.0px;
+	background-color: #323232;
+	max-width: 568.0px;
+}
+
+.mdl-snackbar-text {
+	font-size: 14.0px;
+	padding: 16.0px 24.0px 14.0px;
+}
+
 .mdl-layout__drawer {
 	width: 320px;
 	left: -320px;
@@ -380,34 +402,17 @@ th.ui-state-default {
 	padding: 25px 35px;
 }
 
-.status-card {
-	margin-top: 25px;
-	background-color: #fff;
-	border-radius: 2px;
+.mdl-button.mdl-button--colored {
+	color: rgb(33, 150, 243) !important;
 }
 
-.status-card td input[type=radio] {
-	background-color: black;
-}
-/* .ui-paginator.ui-paginator-bottom.ui-widget-header.ui-corner-bottom {
-	background: none;
-	padding: 10px;
+.mdl-button {
+	color: #fff !important;
 }
 
-.ui-paginator-next.ui-state-default.ui-corner-all, .ui-paginator-last.ui-state-default.ui-corner-all
-	{
-	background: rgb(255, 110, 64);
-	border: none;
+.mdl-checkbox__label {
+	/*
+	Used for switch in add category module
+	*/
+	margin-left: 20px;
 }
-
-.ui-paginator-next.ui-state-default.ui-corner-all.ui-state-hover {
-	border: none;
-	box-shadow: none;
-	-webkit-box-shadow: none;
-} */
-/* .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
-	{
-	border: none;
-	font-weight: normal;
-	text-shadow: none;
-} */
