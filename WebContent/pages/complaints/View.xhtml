@@ -26,7 +26,7 @@
 				<h:graphicImage style="width: 410px; height: 410px;"
 					value="http://localhost:8080/CIRSWeb/image/complaints/#{viewComplaintBean.complaint.id}" />
 			</div>
-			<div class="mdl-card mdl-shadow--2dp">
+			<div class="mdl-card mdl-shadow--4dp">
 				<div class="mdl-card__supporting-text">
 					<h5>Description</h5>
 					#{viewComplaintBean.complaint.description}
@@ -49,7 +49,7 @@
 				</div>
 			</div>
 			<h:form prependId="false">
-				<div class="mdl-shadow--2dp status-card" jsf:id="statusCard">
+				<div class="mdl-shadow--4dp status-card" jsf:id="statusCard">
 					<div class="mdl-card__supporting-text" style="width: 770px;">
 						<h4>Status</h4>
 						<h6 style="display: inline;">Current Status</h6>
@@ -83,7 +83,7 @@
 					jsf:id="commentDiv">
 					<ui:repeat var="comment"
 						value="#{viewComplaintBean.complaint.comments}">
-						<div class="mdl-shadow--2dp" style="margin-bottom: 10px;">
+						<div class="mdl-shadow--4dp comment-card" style="margin-bottom: 10px;">
 							<div class="mdl-card__supporting-text" style="width: 770px;">
 								<div class="comment-data">#{comment.data}</div>
 								<hr class="comment-rule" />
@@ -96,7 +96,7 @@
 							</div>
 						</div>
 					</ui:repeat>
-					<div class="mdl-card mdl-shadow--2dp" style="width: inherit;">
+					<div class="mdl-card mdl-shadow--4dp" style="width: inherit;">
 						<textarea style="margin: 5px; height: 135px; resize: none;"
 							jsf:id="commentInput" jsf:value="#{viewComplaintBean.comment}"
 							placeholder="Enter Comment" />

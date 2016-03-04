@@ -52,51 +52,18 @@
 	font-family: "Roboto" "Arial" "sans-serif";
 }
 */
+body {
+	background-color: #efefef;
+}
+
 .ui-fileupload-content {
 	visibility: hidden !important;
 }
 
-/* .mdl-button.ui-state-focus {
-	font-weight: normal !important;
-	border: none !important;
-	text-shadow: none !important;
-	-webkit-box-shadow: none !important;
-	box-shadow: none !important;
+.ui-paginator {
+	background-color: #fff;
 }
 
-.mdl-button.ui-state-hover {
-	font-weight: normal !important;
-	border: none !important;
-	background: rgba(158, 158, 158, .2);
-	text-shadow: none !important;
-	-webkit-box-shadow: none !important;
-	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px
-		rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12) !important;
-	text-shadow: none !important;
-}
-
-.mdl-button.ui-state-active {
-	font-weight: normal !important;
-	border: none !important;
-	text-shadow: none !important;
-	-webkit-box-shadow: none !important;
-	box-shadow: none !important;
-}
-
-.ui-paginator-page.ui-state-default.ui-corner-all.ui-state-focus {
-	border: none !important;
-	text-shadow: none !important;
-	-webkit-box-shadow: none !important;
-	box-shadow: none !important;
-}
-
-.ui-paginator-page.ui-state-default.ui-corner-all.ui-state-hover {
-	border: none !important;
-	text-shadow: none !important;
-	-webkit-box-shadow: none !important;
-	box-shadow: none !important;
-}
- */
 .ui-paginator-page, .ui-paginator-next, .ui-paginator-last,
 	.ui-paginator-first, .ui-paginator-prev {
 	border: none !important;
@@ -318,7 +285,6 @@ th.ui-state-default {
 /* .mdl-checkbox__label {
 	margin-left: 20px;
 } */
-
 .buttonDisplayArea {
 	display: table-row;
 }
@@ -363,6 +329,11 @@ th.ui-state-default {
 
 .comment-rule {
 	margin: 5px 0;
+}
+
+.comment-card {
+	background-color: #fff;
+	border-radius: 2px;
 }
 
 #loadDialog {
@@ -411,9 +382,11 @@ th.ui-state-default {
 
 .status-card {
 	margin-top: 25px;
+	background-color: #fff;
+	border-radius: 2px;
 }
 
-.status-card td input[type=radio]{
+.status-card td input[type=radio] {
 	background-color: black;
 }
 /* .ui-paginator.ui-paginator-bottom.ui-widget-header.ui-corner-bottom {
