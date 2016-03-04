@@ -13,11 +13,9 @@
 				tableStyle="width:100%" styleClass="mdl-shadow--2dp"
 				widgetVar="compTable">
 
-				<p:ajax event="rowSelect"
-					oncomplete="getRipple('viewBtn');"
+				<p:ajax event="rowSelect" oncomplete="getRipple('viewBtn');"
 					update=" :complaintForm:viewButton" />
-				<p:ajax event="rowUnselect"
-					oncomplete="getRipple('viewBtn');"
+				<p:ajax event="rowUnselect" oncomplete="getRipple('viewBtn');"
 					update=" :complaintForm:viewButton" />
 				<p:ajax event="page" listener="#{complaintBean.onPageChange}"
 					update=":complaintForm:viewButton" />
@@ -46,8 +44,10 @@
 					sortBy="#{complaint.user.userName}">
 					<h:outputText value="#{complaint.user.userName}" />
 				</p:column>
-				<p:column headerText="Status" sortBy="#{complaint.status}" filterBy="#{complaint.status}">
-					<h:outputText value="#{complaint.status}" converter="complaintStatusConverter" />
+				<p:column headerText="Status" sortBy="#{complaint.status}"
+					filterBy="#{complaint.status}">
+					<h:outputText value="#{complaint.status}"
+						converter="complaintStatusConverter" />
 				</p:column>
 				<p:column headerText="Timestamp" sortBy="#{complaint.timestamp}">
 					<h:outputText value="#{complaint.timestamp}">
@@ -57,9 +57,9 @@
 
 
 			</p:dataTable>
-			<div class="button-container">
+			<div style="width: 64px; margin: 20px auto;">
 				<p:commandButton value="View" oncomplete="getRipple('closeViewBtn')"
-					style="margin-left:165px" action="#{complaintBean.viewComplaint()}"
+					action="#{complaintBean.viewComplaint()}"
 					disabled="#{complaintBean.selected eq null}" id="viewButton"
 					widgetVar="viewBtn"
 					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
