@@ -40,11 +40,11 @@ function showSnackBar(mes) {
 	snackbarContainer.MaterialSnackbar.showSnackbar(data);
 }
 function showAddCategory() {
-	upgradeComponents('.mdl-switch', '.mdl-textfield');
+	upgradeComponents('.mdl-switch', '.mdl-textfield','.mdl-button');
 	PF('addDlg').show();
 }
 function showEditCategory() {
-	upgradeComponents('.mdl-switch', '.mdl-textfield');
+	upgradeComponents('.mdl-switch', '.mdl-textfield','.mdl-button');
 	PF('editDlg').show();
 }
 

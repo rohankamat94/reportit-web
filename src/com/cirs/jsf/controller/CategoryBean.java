@@ -6,8 +6,10 @@ import java.util.Map;
 import java.util.Objects;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.primefaces.model.LazyDataModel;
@@ -15,6 +17,7 @@ import org.primefaces.model.SortOrder;
 
 import com.cirs.dao.remote.CategoryDao;
 import com.cirs.entities.Category;
+import com.cirs.exceptions.EntityAlreadyExistsException;
 import com.cirs.exceptions.EntityNotCreatedException;
 import com.cirs.exceptions.EntityNotFoundException;
 import com.cirs.jsf.controller.util.LazyLoader;
@@ -117,9 +120,19 @@ public class CategoryBean extends BaseEntityController<Category> implements Seri
 	}
 
 	public void editCategory() {
+		if (selected.getName() == null || selected.getName().isEmpty()) {
+			JsfUtils.showSnackBar("Category Name cannot be empty");
+			return;
+		}
+
 		try {
 			catDao.edit(getSelected());
 			setSelected(null);
+			JsfUtils.executeJS("PF('editDlg').hide()");
+		} catch (EJBException e) {
+			e.printStackTrace();
+			JsfUtils.showSnackBar("Category with name " + getSelected().getName() + " already exists");
+			return;
 		} catch (EntityNotFoundException e) {
 			e.printStackTrace();
 		}

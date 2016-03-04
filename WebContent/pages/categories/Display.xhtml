@@ -12,9 +12,9 @@
 				tableStyleClass="mdl-data-table mdl-js-data-table"
 				tableStyle="width:100%" styleClass="mdl-shadow--2dp"
 				widgetVar="catTable">
-				<p:ajax event="rowSelect" oncomplete="getRipple('deleteBtn');"
+				<p:ajax event="rowSelect" oncomplete="getRipple('deleteBtn','editBtn');"
 					update=":categoryForm:deleteButton :categoryForm:editButton" />
-				<p:ajax event="rowUnselect" oncomplete="getRipple('deleteBtn');"
+				<p:ajax event="rowUnselect" oncomplete="getRipple('deleteBtn','editBtn');"
 					update=":categoryForm:deleteButton :categoryForm:editButton" />
 				<p:ajax event="page" listener="#{categoryBean.onPageChange}"
 					update="categoryForm:deleteButton :categoryForm:editButton" />
@@ -39,6 +39,7 @@
 
 				<p:commandButton value="Edit" oncomplete="showEditCategory();"
 					style="margin-left:20px" update=":editDialog"
+					widgetVar="editBtn"
 					disabled="#{categoryBean.selected eq null}" id="editButton"
 					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
 

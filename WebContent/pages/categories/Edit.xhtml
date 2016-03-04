@@ -28,7 +28,8 @@
 			<p:commandButton style="margin-left: 37%; margin-top: 90px;"
 				value="Save" widgetVar="saveBtn"
 				actionListener="#{categoryBean.editCategory}"
-				onclick="PF('editDlg').hide();"
+				onsuccess="console.log('here');if($('#editDialog').attr('aria-hidden')==='true'){unblur();}"
+				onerror="console.log('in on error')"
 				update=":categoryForm:categoryTable, :categoryForm:deleteButton, :categoryForm:editButton"
 				class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
 				/>
