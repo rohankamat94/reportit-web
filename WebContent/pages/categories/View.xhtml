@@ -6,7 +6,7 @@
 	<p:dialog widgetVar="viewDlg" width="500px" height="250px"
 		resizable="false" visible="#{categoryBean.selected ne null}"
 		draggable="false" style="background-color:white;" closable="true"
-		modal="true"
+		modal="true" onShow="blur();" onHide="unblur()"
 		header="#{categoryBean.selected.name}"
 		appendTo="@(body)" id="viewDialog">
 		<p:panelGrid columns="2" id="viewInfoPanel">

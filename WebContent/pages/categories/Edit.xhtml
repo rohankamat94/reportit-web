@@ -6,7 +6,7 @@
 	<p:dialog widgetVar="editDlg" width="500px" height="250px"
 		resizable="false" draggable="false" style="background-color:white;"
 		closable="true" modal="true" header="Edit Category" appendTo="@(body)"
-		visible="#{categoryBean.selected ne null}"
+		visible="#{categoryBean.selected ne null}" onShow="blur();" onHide="unblur()"
 		id="editDialog">
 		<h:form id="editCategoryForm">
 			<p:panel>

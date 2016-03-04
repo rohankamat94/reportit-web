@@ -6,6 +6,7 @@
 	<p:dialog widgetVar="uploadDlg" width="800px" height="450px"
 		resizable="false" visible="#{!empty userBean.response.errors}"
 		style="background-color:white;" closable="false" modal="true"
+		onShow="blur();" onHide="unblur()"
 		header="Error" appendTo="@(body)" id="uploadDialog">
 		<p:panel>
 			<p:dataTable var="err" paginator="true" paginatorPosition="bottom"

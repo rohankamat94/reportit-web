@@ -7,6 +7,15 @@ function createCardFromDialog() {
 	$('.ui-dialog-title').removeClass().addClass('mdl-card__title-text');
 }
 
+function blur(){
+	$('.mdl-layout__container').css('opacity','0.4');
+	$('#toast').css('opacity','1');			//show toast in upload user dialog
+}
+
+function unblur(){
+	$('.mdl-layout__container').css('opacity','1');
+}
+
 /*
  * function makeButtonMdl() { $('.remove') .removeClass() .addClass( 'mdl-button
  * mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'); }

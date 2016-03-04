@@ -4,7 +4,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 	<p:dialog widgetVar="addDlg" width="500px" height="250px"
-		
+		onShow="blur();" onHide="unblur()"
 		resizable="false" draggable="false" style="background-color:white;"
 		closable="true" modal="true" header="Add Category" appendTo="@(body)"
 		visible="#{categoryBean.create ne null}"

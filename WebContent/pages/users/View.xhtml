@@ -6,7 +6,7 @@
 	<p:dialog widgetVar="viewDlg" width="800px" height="450px"
 		resizable="false" visible="#{userBean.selected ne null}"
 		draggable="false" style="background-color:white;" closable="true"
-		modal="true"
+		modal="true" onShow="blur();" onHide="unblur()"
 		header="#{userBean.selected.firstName} #{userBean.selected.lastName}"
 		appendTo="@(body)" id="viewDialog">
 		<h:graphicImage
