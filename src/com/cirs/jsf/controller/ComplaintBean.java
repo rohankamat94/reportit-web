@@ -1,16 +1,18 @@
 package com.cirs.jsf.controller;
 
-import static com.cirs.util.Utils.getAsMap;
-
+import static com.cirs.util.Utils.getAsMap;import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import com.cirs.dao.remote.ComplaintDao;
 import com.cirs.entities.Complaint;
@@ -37,6 +39,19 @@ public class ComplaintBean extends BaseEntityController<Complaint> {
 					Map<String, Object> map = new HashMap<>();
 					map.put("user", getAsMap("admin", getAsMap("id", getAdmin().getId())));
 					return map;
+				}
+				@Override
+				public List<Complaint> load(int first, int pageSize, String sortField, SortOrder sortOrder,
+						Map<String, Object> filters) {
+					List<Complaint> result= super.load(first, pageSize, sortField, sortOrder, filters);
+					if("status".equals(sortField)){
+						Comparator<Complaint> comp=Comparator.comparing(Complaint::getStatus);
+						if(sortOrder==SortOrder.DESCENDING){
+							comp=comp.reversed();
+						}
+						return result.stream().sorted(comp).collect(Collectors.toList());
+					}
+					return result;
 				}
 			};
 		}

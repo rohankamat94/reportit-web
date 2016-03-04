@@ -46,7 +46,7 @@
 					sortBy="#{complaint.user.userName}">
 					<h:outputText value="#{complaint.user.userName}" />
 				</p:column>
-				<p:column headerText="Status">
+				<p:column headerText="Status" sortBy="#{complaint.status}" filterBy="#{complaint.status}">
 					<h:outputText value="#{complaint.status}" converter="complaintStatusConverter" />
 				</p:column>
 				<p:column headerText="Timestamp" sortBy="#{complaint.timestamp}">
