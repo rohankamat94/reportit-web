@@ -31,9 +31,15 @@
 				<div class="mdl-layout-spacer"></div>
 				<!-- Navigation. We hide it in small screens. -->
 				<nav class="mdl-navigation mdl-layout--large-screen-only">
-					<form jsf:id="navForm" class="mdl-navigation__link">
-						<button class="linkbutton" jsf:action="#{loginBean.logout}">Logout</button>
-					</form>
+					<button id="demo-menu-lower-right"
+						class="mdl-button mdl-js-button mdl-button--icon">
+						<i class="material-icons">more_vert</i>
+					</button>
+					<div
+						class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+						for="demo-menu-lower-right">
+						<div class="mdl-menu__item" onclick="$('#logoutButton').click()">Logout</div>
+					</div>
 				</nav>
 			</div>
 		</header>
@@ -79,5 +85,11 @@
 		<div class="mdl-snackbar__text"></div>
 		<button class="mdl-snackbar__action" type="button"></button>
 	</div>
+
+
+
+	<form jsf:id="navForm" style="visibility: hidden;">
+		<button jsf:action="#{loginBean.logout}" id="logoutButton" />
+	</form>
 </h:body>
 </html>

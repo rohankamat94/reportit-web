@@ -111,10 +111,10 @@ table {
 
 .ui-sortable-column-icon.ui-icon.ui-icon-carat-2-n-s.ui-icon-triangle-1-s
 	{
-	
 	width: 18px;
 	height: 18px;
-	background-image: url('http://localhost:8080/CIRSWeb/faces/javax.faces.resources/icons/ic_sort_down.png');
+	background-image:
+		url('http://localhost:8080/CIRSWeb/faces/javax.faces.resources/icons/ic_sort_down.png');
 }
 
 .ui-paginator-next {
@@ -368,6 +368,10 @@ th.ui-state-default {
 /*
  *	Material Design Components
  */
+.mdl-menu__container {
+	margin-right: 50px;
+}
+
 .mdl-snackbar {
 	/* Positions snackbar to bottom left */
 	margin-left: 20.0px;
