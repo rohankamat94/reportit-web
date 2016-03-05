@@ -9,8 +9,8 @@
 				paginatorPosition="bottom" rows="5" id="userTable" lazy="true"
 				selection="#{userBean.selected}" selectionMode="single"
 				tableStyleClass="mdl-data-table mdl-js-data-table"
-				tableStyle="width:100%" styleClass="mdl-shadow--2dp"
-				widgetVar="usrTable">
+				rowsPerPageTemplate="10,20,50,100" tableStyle="width:100%"
+				styleClass="mdl-shadow--2dp" widgetVar="usrTable">
 				<p:ajax event="rowSelect"
 					oncomplete="getRipple('viewBtn','deleteBtn');"
 					update=":userForm:deleteButton :userForm:viewButton" />
@@ -47,7 +47,7 @@
 					<h:outputText value="#{user.phone}" />
 				</p:column>
 			</p:dataTable>
-			<div style="margin: 20px auto; width: 407px;">
+			<div style="margin: 20px auto; width: 412px;">
 				<p:commandButton value="View" oncomplete="getRipple('closeViewBtn')"
 					update=":viewDialog" disabled="#{userBean.selected eq null}"
 					id="viewButton" widgetVar="viewBtn"
@@ -59,15 +59,22 @@
 					actionListener="#{userBean.deleteUser}"
 					update=":userForm:userTable, :userForm:deleteButton, :userForm:viewButton"
 					id="deleteButton" disabled="#{userBean.selected eq null}" />
-				<p:commandButton value="Download" ajax="false"
+				<p:commandButton value="Download" ajax="false" id="downloadButton"
 					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
 					style="margin-left:20px">
 					<p:fileDownload value="#{userBean.sampleFile}" />
 				</p:commandButton>
-
+				<div class="mdl-tooltip" for="userForm:downloadButton">
+					Download a sample file<br />which can be<br /> filled and
+					uploaded
+				</div>
 				<p:commandButton value="Upload" ajax="true" onclick="upload()"
-					style="margin-left:20px" oncomplete="getRipple('closeUploadBtn')"
+					id="uploadButton" style="margin-left:20px"
+					oncomplete="getRipple('closeUploadBtn')"
 					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
+				<div class="mdl-tooltip" for="userForm:uploadButton">
+					Upload an excel file<br />to add Users
+				</div>
 
 				<p:fileUpload dragDropSupport="false" auto="true" skinSimple="true"
 					onstart="showLoader();" oncomplete="hideLoader();"

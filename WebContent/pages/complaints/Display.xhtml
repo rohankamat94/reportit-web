@@ -8,7 +8,7 @@
 			<p:dataTable value="#{complaintBean.complaints}" var="complaint"
 				paginator="true" paginatorPosition="bottom" rows="10" lazy="true"
 				id="complaintTable" selection="#{complaintBean.selected}"
-				selectionMode="single"
+				selectionMode="single" rowsPerPageTemplate="10,20,50,100"
 				tableStyleClass="mdl-data-table mdl-js-data-table"
 				tableStyle="width:100%" styleClass="mdl-shadow--2dp"
 				widgetVar="compTable">
