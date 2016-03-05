@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -28,6 +29,7 @@ import com.cirs.core.CIRSConstants.ImageDir;
 import com.cirs.dao.remote.UserDao;
 import com.cirs.entities.User;
 import com.cirs.entities.User.UserTO;
+import com.cirs.exceptions.EntityAlreadyExistsException;
 import com.cirs.exceptions.EntityNotFoundException;
 import com.cirs.webservice.util.JsonUtils;
 
@@ -97,7 +99,7 @@ public class UserWebService {
 		}
 		try {
 			user.setId(id);
-			if (!dao.findById(id).getAdmin().getId().equals(adminId)) {
+			if (dao.findById(id) == null || !dao.findById(id).getAdmin().getId().equals(adminId)) {
 				throw new EntityNotFoundException("");
 			}
 			System.out.println("in save " + dao.edit(user));
@@ -107,6 +109,12 @@ public class UserWebService {
 		} catch (EntityNotFoundException e) {
 			return Response.status(Status.NOT_FOUND)
 					.entity(getResponseEntity(404, "User with id " + id + " does not exist")).build();
+		} catch (EJBException e) {
+			if (e.getCause() instanceof EntityAlreadyExistsException) {
+				System.out.println("in instanceof");
+				return Response.status(409).entity(getResponseEntity(409, "User with email already exists")).build();
+			}
+			return null;
 		}
 	}
 
@@ -165,14 +173,17 @@ public class UserWebService {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response verifyCredentials(User user) {
+	public Response verifyCredentials(@QueryParam("adminId") Long adminId, User user) {
 		System.out.println("here in verify");
+		if (adminId == null) {
+			return Response.status(400).entity(JsonUtils.getResponseEntity(400, "adminId cannot be null")).build();
+		}
 		if (user == null) {
 			return Response.status(400).entity(
 					JsonUtils.getResponseEntity(400, "The request body is null, or cannot be serialized to User"))
 					.build();
 		}
-		UserTO u = dao.verifyCredentials(user.getUserName(), user.getPassword());
+		UserTO u = dao.verifyCredentials(adminId, user.getUserName(), user.getPassword());
 		return u != null ? Response.status(200).type(MediaType.APPLICATION_JSON).entity(u).build()
 				: Response.status(404).entity(JsonUtils.getResponseEntity(404, "username or password is invalid"))
 						.build();
