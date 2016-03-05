@@ -173,21 +173,19 @@ public class UserWebService {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response verifyCredentials(@QueryParam("adminId") Long adminId, User user) {
+	public Response verifyCredentials(User user) {
 		System.out.println("here in verify");
-		if (adminId == null) {
-			return Response.status(400).entity(JsonUtils.getResponseEntity(400, "adminId cannot be null")).build();
-		}
 		if (user == null) {
 			return Response.status(400).entity(
 					JsonUtils.getResponseEntity(400, "The request body is null, or cannot be serialized to User"))
 					.build();
 		}
-		UserTO u = dao.verifyCredentials(adminId, user.getUserName(), user.getPassword());
+		UserTO u = dao.verifyCredentials(user.getUserName(), user.getPassword());
 		return u != null ? Response.status(200).type(MediaType.APPLICATION_JSON).entity(u).build()
 				: Response.status(404).entity(JsonUtils.getResponseEntity(404, "username or password is invalid"))
 						.build();
 	}
+
 
 	@PUT
 	@Path("/token")
