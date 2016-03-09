@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -28,6 +29,7 @@ import com.cirs.entities.Complaint;
 import com.cirs.entities.Complaint.ComplaintTO;
 import com.cirs.entities.Complaint.Status;
 import com.cirs.exceptions.EntityNotCreatedException;
+import com.cirs.exceptions.EntityNotFoundException;
 import com.cirs.webservice.util.JsonUtils;
 
 @Path("/complaint")
@@ -121,6 +123,29 @@ public class ComplaintWebService {
 			e.printStackTrace();
 			return Response.status(400).type(MediaType.APPLICATION_JSON)
 					.entity(getResponseEntity(400, "Could not persist complaint")).build();
+		}
+	}
+
+	@PUT
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response editComplaint(@PathParam("id") Long id, Complaint complaint) {
+		System.out.println(complaint);
+		try {
+			complaint.setId(id);
+			dao.edit(complaint);
+			return Response.status(200).type(MediaType.APPLICATION_JSON)
+					.entity(getResponseEntity(200, "Complaint edited")).build();
+		} catch (EJBException | EntityNotFoundException e) {
+			e.printStackTrace();
+			if (e.getCause() instanceof EntityNotFoundException) {
+				return Response.status(404).type(MediaType.APPLICATION_JSON)
+						.entity(getResponseEntity(404, "Complaint with id " + complaint.getId() + " does not exist"))
+						.build();
+			} else {
+				return null;
+			}
 		}
 	}
 }
