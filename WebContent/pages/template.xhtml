@@ -49,23 +49,23 @@
 				<div class="navdrawer-header--text">Welcome Admin</div>
 			</div>
 			<nav class="mdl-navigation">
-				<h:outputLink value="#{navBean.getNavUrl('complaints')}"
-					styleClass="mdl-navigation__link">
+				<h:outputLink id="complaint-link" value="#{navBean.getNavUrl('complaints')}"
+					styleClass="mdl-navigation__link drawer-link">
 					<i class="material-icons">receipt </i>
 					<span class="nav-spacer" /> Complaints
 				</h:outputLink>
-				<h:outputLink value="#{navBean.getNavUrl('categories')}"
-					styleClass="mdl-navigation__link">
+				<h:outputLink id="category-link" value="#{navBean.getNavUrl('categories')}"
+					styleClass="mdl-navigation__link drawer-link">
 					<i class="material-icons">local_offer </i>
 					<span class="nav-spacer" />Categories
 				</h:outputLink>
-				<h:outputLink value="#{navBean.getNavUrl('users')}"
-					styleClass="mdl-navigation__link">
+				<h:outputLink id="user-link" value="#{navBean.getNavUrl('users')}"
+					styleClass="mdl-navigation__link drawer-link">
 					<i class="material-icons">person </i>
 					<span class="nav-spacer" />User Credentials
 				</h:outputLink>
-				<h:outputLink value="#{navBean.getNavUrl('stats')}"
-					styleClass="mdl-navigation__link">
+				<h:outputLink id="stats-link" value="#{navBean.getNavUrl('stats')}"
+					styleClass="mdl-navigation__link drawer-link">
 					<i class="material-icons">poll </i>
 					<span class="nav-spacer" />Statistics
 				</h:outputLink>

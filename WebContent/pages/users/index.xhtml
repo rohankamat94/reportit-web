@@ -11,6 +11,10 @@
 		User Credentials
 	</ui:define>
 	<ui:define name="main_content">
+		<h:outputScript>
+			setSelected('user-link');
+		</h:outputScript>
+
 		<ui:include src="/pages/users/Display.xhtml" />
 		<ui:include src="/pages/users/Upload.xhtml" />
 		<ui:include src="/pages/users/View.xhtml" />

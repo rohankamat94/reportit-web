@@ -12,6 +12,10 @@
 		Statistics
 	</ui:define>
 	<ui:define name="main_content">
+		<h:outputScript>
+			setSelected('stats-link');
+		</h:outputScript>
+
 		<div
 			style="margin-top: 50px; width: 800px; margin-left: auto; margin-right: auto;">
 			<p:panel>
@@ -21,8 +25,8 @@
 				<p:chart type="bar" model="#{statsBean.compStatusModel}"
 					responsive="true" />
 				<div style="margin: 30px;"></div>
-				<p:chart rendered="#{false}" type="bar" model="#{statsBean.compVsLocationModel}"
-					responsive="true" />
+				<p:chart rendered="#{false}" type="bar"
+					model="#{statsBean.compVsLocationModel}" responsive="true" />
 			</p:panel>
 		</div>
 	</ui:define>

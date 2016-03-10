@@ -7,13 +7,13 @@ function createCardFromDialog() {
 	$('.ui-dialog-title').removeClass().addClass('mdl-card__title-text');
 }
 
-function blur(){
-	$('.mdl-layout__container').css('opacity','0.4');
-	$('#toast').css('opacity','1');			//show toast in upload user dialog
+function blur() {
+	$('.mdl-layout__container').css('opacity', '0.4');
+	$('#toast').css('opacity', '1'); // show toast in upload user dialog
 }
 
-function unblur(){
-	$('.mdl-layout__container').css('opacity','1');
+function unblur() {
+	$('.mdl-layout__container').css('opacity', '1');
 }
 
 /*
@@ -36,15 +36,18 @@ function upload() {
 
 function showSnackBar(mes) {
 	var snackbarContainer = document.querySelector('#toast');
-	var data={message:mes,timeout:2000}
+	var data = {
+		message : mes,
+		timeout : 2000
+	}
 	snackbarContainer.MaterialSnackbar.showSnackbar(data);
 }
 function showAddCategory() {
-	upgradeComponents('.mdl-switch', '.mdl-textfield','.mdl-button');
+	upgradeComponents('.mdl-switch', '.mdl-textfield', '.mdl-button');
 	PF('addDlg').show();
 }
 function showEditCategory() {
-	upgradeComponents('.mdl-switch', '.mdl-textfield','.mdl-button');
+	upgradeComponents('.mdl-switch', '.mdl-textfield', '.mdl-button');
 	PF('editDlg').show();
 }
 
@@ -65,4 +68,9 @@ function getRipple() {
 			componentHandler.upgradeElements(comp[x]);
 		}
 	}
+}
+
+function setSelected(linkId) {
+	$('.drawer-link').removeClass('selected-link');
+	$('#' + linkId).addClass('selected-link');
 }

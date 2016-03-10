@@ -267,6 +267,13 @@ th.ui-state-default {
 /**
 	 * Custom components
 	 */
+.drawer-link{
+	color:#424242 !important;
+}
+.drawer-link.selected-link {
+	background-color: rgb(228, 228, 228);
+}
+
 .button-container {
 	margin-top: 20.0px;
 	margin-left: 33.33%;

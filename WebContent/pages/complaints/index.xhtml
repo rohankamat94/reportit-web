@@ -7,10 +7,14 @@
 	<ui:define name="title">
 		Complaint
 	</ui:define>
+
 	<ui:define name="header_title">
 		Complaint
 	</ui:define>
 	<ui:define name="main_content">
+		<h:outputScript>
+		setSelected('complaint-link');
+		</h:outputScript>
 		<ui:include src="/pages/complaints/Display.xhtml" />
- 	</ui:define>
+	</ui:define>
 </ui:composition>

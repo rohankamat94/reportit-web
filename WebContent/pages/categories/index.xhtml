@@ -11,6 +11,10 @@
 		Categories
 	</ui:define>
 	<ui:define name="main_content">
+		<h:outputScript>
+			setSelected('category-link');
+		</h:outputScript>
+
 		<ui:include src="/pages/categories/Display.xhtml" />
 		<ui:include src="/pages/categories/Edit.xhtml" />
 		<ui:include src="/pages/categories/Add.xhtml" />
