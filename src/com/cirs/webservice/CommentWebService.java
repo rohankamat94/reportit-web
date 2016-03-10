@@ -26,6 +26,9 @@ public class CommentWebService {
 		if (comment == null || comment.getData() == null) {
 			return Response.status(400).entity(getResponseEntity(400, "Comment cannot be empty")).build();
 		}
+		if (comment.getTime() == null) {
+			return Response.status(400).entity(getResponseEntity(400, "Comment time cannot be empty")).build();
+		}
 		if (comment.getUser() == null || comment.getUser().getId() == null) {
 			return Response.status(400).entity(getResponseEntity(400, "User cannot be null")).build();
 
