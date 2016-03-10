@@ -2,9 +2,11 @@ package com.cirs.webservice;
 
 import static com.cirs.webservice.util.JsonUtils.getResponseEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -18,10 +20,15 @@ import com.cirs.dao.remote.UpvoteDao;
 import com.cirs.dao.remote.UserDao;
 import com.cirs.entities.Upvote;
 import com.cirs.entities.User;
+import com.cirs.exceptions.EntityAlreadyExistsException;
 import com.cirs.webservice.util.JsonUtils;
 
 @Path("upvote")
 public class UpvoteWebService {
+	private static class UpvoteResponse {
+		int created = 0;
+		List<Upvote> failures = new ArrayList<>();
+	}
 
 	@EJB
 	UpvoteDao dao;
@@ -36,10 +43,21 @@ public class UpvoteWebService {
 		if (upvotes.isEmpty()) {
 			return Response.ok(getResponseEntity(200, "No upvotes given")).build();
 		}
+		UpvoteResponse response = new UpvoteResponse();
 		for (Upvote u : upvotes) {
-			dao.createUpvote(u);
+			try {
+				dao.createUpvote(u);
+				response.created++;
+			} catch (EJBException e) {
+				e.printStackTrace();
+				if (e.getCause() instanceof EntityAlreadyExistsException) {
+					System.out.println("could not create upvote");
+				}
+				response.failures.add(u);
+			}
+
 		}
-		return Response.status(201).entity(getResponseEntity(201, "Created")).build();
+		return Response.status(200).entity(response).build();
 	}
 
 	@GET
