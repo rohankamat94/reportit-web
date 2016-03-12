@@ -8,6 +8,10 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
@@ -19,12 +23,17 @@ import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
 
 import com.cirs.entities.Admin;
-import com.cirs.entities.User;
-import com.cirs.entities.User.UserTO;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
 @Provider
 @Produces(MediaType.APPLICATION_JSON)
@@ -32,7 +41,7 @@ import com.google.gson.GsonBuilder;
 public final class GsonMessageBodyHandler implements MessageBodyWriter<Object>, MessageBodyReader<Object> {
 	private static final String UTF_8 = "UTF-8";
 
-	private Gson gson;
+	private Gson gson = getGson();
 
 	private static class AdminExclusionStrategy implements ExclusionStrategy {
 		@Override
@@ -46,10 +55,34 @@ public final class GsonMessageBodyHandler implements MessageBodyWriter<Object>, 
 		}
 	}
 
+	private static class TimestampAdapter implements JsonSerializer<Timestamp>, JsonDeserializer<Timestamp> {
+		private static final SimpleDateFormat timestampFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
+
+		@Override
+		public Timestamp deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+				throws JsonParseException {
+			String dateString = json.getAsString();
+			try {
+				return new Timestamp(timestampFormat.parse(dateString).getTime());
+			} catch (ParseException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+
+		@Override
+		public JsonElement serialize(Timestamp src, Type typeOfSrc, JsonSerializationContext context) {
+			Date date = new Date(src.getTime());
+			return new JsonPrimitive(timestampFormat.format(date));
+		}
+
+	}
+
 	// Customize the gson behavior here
 	private Gson getGson() {
 		if (gson == null) {
-			final GsonBuilder gsonBuilder = new GsonBuilder().setDateFormat("dd MMM yyyy HH:mm:ss")
+			final GsonBuilder gsonBuilder = new GsonBuilder().setDateFormat("dd/MM/yyyy")
+					.registerTypeAdapter(Timestamp.class, new TimestampAdapter())
 					.addSerializationExclusionStrategy(new AdminExclusionStrategy());
 			gson = gsonBuilder.disableHtmlEscaping().create();
 		}
@@ -78,7 +111,6 @@ public final class GsonMessageBodyHandler implements MessageBodyWriter<Object>, 
 			} else {
 				jsonType = genericType;
 			}
-			Gson gson = type.equals(User.class) || type.equals(UserTO.class) ? getUserGson() : getGson();
 			return gson.fromJson(streamReader, jsonType);
 		} finally {
 			try {
@@ -87,11 +119,6 @@ public final class GsonMessageBodyHandler implements MessageBodyWriter<Object>, 
 				e.printStackTrace();
 			}
 		}
-	}
-
-	private Gson getUserGson() {
-		return new GsonBuilder().setDateFormat("dd/MM/yyyy")
-				.addSerializationExclusionStrategy(new AdminExclusionStrategy()).create();
 	}
 
 	@Override
@@ -116,7 +143,6 @@ public final class GsonMessageBodyHandler implements MessageBodyWriter<Object>, 
 			} else {
 				jsonType = genericType;
 			}
-			Gson gson = type.equals(User.class) || type.equals(UserTO.class) ? getUserGson() : getGson();
 			gson.toJson(object, jsonType, writer);
 		} finally {
 			writer.close();
