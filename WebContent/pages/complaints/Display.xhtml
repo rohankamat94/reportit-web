@@ -51,14 +51,14 @@
 				</p:column>
 				<p:column headerText="Timestamp" sortBy="#{complaint.timestamp}">
 					<h:outputText value="#{complaint.timestamp}">
-						<f:convertDateTime pattern="dd MMM yyyy HH:mm:ss a" />
+						<f:convertDateTime pattern="#{bundle.timestampFormat}" />
 					</h:outputText>
 				</p:column>
 
 
 			</p:dataTable>
 			<div style="width: 64px; margin: 20px auto;">
-				<p:commandButton value="View" oncomplete="getRipple('closeViewBtn')"
+				<p:commandButton value="#{bundle.view}" oncomplete="getRipple('closeViewBtn')"
 					action="#{complaintBean.viewComplaint()}"
 					disabled="#{complaintBean.selected eq null}" id="viewButton"
 					widgetVar="viewBtn"
