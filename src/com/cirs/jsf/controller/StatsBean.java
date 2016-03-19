@@ -14,6 +14,7 @@ import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.HorizontalBarChartModel;
 
 import com.cirs.core.CIRSConstants;
 import com.cirs.dao.remote.CategoryDao;
@@ -35,7 +36,7 @@ public class StatsBean {
 	private List<Complaint> complaints;
 	private List<Category> categories;
 
-	private BarChartModel compVsCatModel = new BarChartModel();
+	private HorizontalBarChartModel compVsCatModel = new HorizontalBarChartModel();
 	private BarChartModel compStatusModel = new BarChartModel();
 	private BarChartModel compVsLocationModel = new BarChartModel();
 
@@ -51,7 +52,7 @@ public class StatsBean {
 		Map<String, Long> compStatus = getCompStatusMap();
 		Map<String, Long> compVsLoc = getCompVsLocMap();
 
-		createModel(compVsCatModel, compVsCatMap, "No. of complaints per category", "Category", "Complaints");
+		createModel(compVsCatModel,compVsCatMap,"No. of complaints per category","Category","Complaints");
 		createModel(compStatusModel, compStatus, "No. of complaints per status", "Status", "Complaints");
 		createModel(compVsLocationModel, compVsLoc, "No. of complaints per location", "Location", "Complaints");
 	}
@@ -115,4 +116,10 @@ public class StatsBean {
 		this.compVsLocationModel = compVsLocationModel;
 	}
 
+	public String getChartHeightStyle() {
+		System.out.println("in chart height");
+		String style = "height:" + (categories.size() * 65) + "px";
+		System.out.println(style);
+		return style;
+	}
 }

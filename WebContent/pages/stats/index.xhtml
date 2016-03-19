@@ -20,6 +20,7 @@
 			style="margin-top: 50px; width: 800px; margin-left: auto; margin-right: auto;">
 			<p:panel>
 				<p:chart type="bar" model="#{statsBean.compVsCatModel}"
+					style="#{statsBean.chartHeightStyle}"
 					responsive="true" />
 				<div style="margin: 30px;"></div>
 				<p:chart type="bar" model="#{statsBean.compStatusModel}"
