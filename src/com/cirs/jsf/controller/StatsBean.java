@@ -93,8 +93,17 @@ public class StatsBean {
 		Axis x = model.getAxis(AxisType.X);
 		x.setLabel(xLabel);
 		Axis y = model.getAxis(AxisType.Y);
+		
+		Long yMax=map.values().stream().mapToLong(Number::longValue).max().getAsLong();
 		y.setLabel(yLabel);
+		
+		y.setMax(complaints.size());
+		y.setTickCount(yMax.intValue());
+		
+		x.setMax(complaints.size());
+		x.setTickCount(yMax.intValue());
 
+		
 		ChartSeries cs = new ChartSeries();
 		cs.setData((Map<Object, Number>) map);
 		model.addSeries(cs);
